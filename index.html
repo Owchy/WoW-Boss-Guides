@@ -515,6 +515,135 @@
   ::-webkit-scrollbar-track { background: var(--void); }
   ::-webkit-scrollbar-thumb { background: rgba(155,109,255,0.3); border-radius: 3px; }
 
+  /* ─── Loot Table ─── */
+  .loot-section {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--void-border);
+  }
+
+  .loot-ilvl-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .ilvl-pill {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  .ilvl-n { border-color: var(--normal-border); color: var(--normal-text); background: var(--normal-bg); }
+  .ilvl-h { border-color: var(--heroic-border); color: var(--heroic-text); background: var(--heroic-bg); }
+
+  .loot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 8px;
+  }
+
+  .loot-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 10px;
+    border-radius: 3px;
+    border: 1px solid var(--void-border);
+    background: rgba(255,255,255,0.02);
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .loot-item:hover {
+    border-color: var(--boss-color);
+    background: var(--boss-dim);
+  }
+
+  .loot-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .loot-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .loot-icon-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* Quality colours — WoW standard */
+  .q-uncommon .loot-name { color: #1eff00; }
+  .q-rare .loot-name      { color: #0070dd; }
+  .q-epic .loot-name      { color: #a335ee; }
+  .q-legendary .loot-name { color: #ff8000; }
+
+  .loot-name {
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #a335ee;
+  }
+
+  .loot-slot {
+    font-family: 'Crimson Pro', serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.2;
+  }
+
+  .loot-special {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    padding: 7px 12px;
+    border-radius: 3px;
+    border: 1px solid var(--gold-dim);
+    background: rgba(201,168,76,0.06);
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    color: var(--gold);
+    width: 100%;
+  }
+
+  .loot-special .star { font-size: 14px; }
+
+  .tier-note {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 3px;
+    border: 1px solid rgba(155,109,255,0.25);
+    background: rgba(155,109,255,0.06);
+    font-family: 'Crimson Pro', serif;
+    font-size: 13px;
+    color: #b89fff;
+    line-height: 1.5;
+  }
+
+  .tier-note strong { color: #c9b0ff; font-weight: 600; }
+
   /* ─── Mobile ─── */
   @media (max-width: 600px) {
     .boss-header { grid-template-columns: 44px 1fr auto; }
@@ -523,6 +652,7 @@
     .boss-name { font-size: 14px; }
     .boss-body { padding: 18px 16px 18px 18px; }
     .diff-btn { padding: 10px 20px; }
+    .loot-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); }
   }
 </style>
 </head>
@@ -583,6 +713,49 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Higher soak damage</strong> — Umbral Collapse hits harder. Ensure 3+ players soak each marked position so no one dies mid-wave.</div></div>
         <div class="wipe-box">Uncoordinated dispels fragment positioning → missed soaks → three-in-a-row. Lock in your dispel order before pulling.</div>
       </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 246</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 259</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_helm_plate_raidwarrior_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪖</div>'"></div>
+            <div><div class="loot-name">Averzian's Void Crown</div><div class="loot-slot">Helm · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_chest_cloth_raidmage_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👕</div>'"></div>
+            <div><div class="loot-name">Voidweave Robe</div><div class="loot-slot">Chest · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_pants_leather_raiddruid_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👖</div>'"></div>
+            <div><div class="loot-name">Leggings of the Endless Dark</div><div class="loot-slot">Legs · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_boot_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🥾</div>'"></div>
+            <div><div class="loot-name">Shadowguard Warboots</div><div class="loot-slot">Feet · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_staff_2h_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪄</div>'"></div>
+            <div><div class="loot-name">Imperator's Voidshard Staff</div><div class="loot-slot">Staff · 2H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Fractured Grid Fragment</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_ring_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💍</div>'"></div>
+            <div><div class="loot-name">Seal of the Claimed Square</div><div class="loot-slot">Ring</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_cape_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧣</div>'"></div>
+            <div><div class="loot-name">Cloak of the Voidspire Vanguard</div><div class="loot-slot">Back</div></div>
+          </a>
+        </div>
+      </div>
     </div>
   </article>
 
@@ -617,6 +790,46 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Tighter DPS window</strong> — Reaching the third Void Breath with walls up is typically fatal. Plan cooldowns early enough to shorten the fight.</div></div>
         <div class="wipe-box">Kiting only 1 add onto a Heroic wall — it will not break. Pre-assign your kite pairs and communicate wall status in real time.</div>
       </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 249</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 262</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_shoulder_plate_raidwarrior_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Vorasius's Crushing Pauldrons</div><div class="loot-slot">Shoulders · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_gauntlets_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧤</div>'"></div>
+            <div><div class="loot-name">Gloves of Void Pressure</div><div class="loot-slot">Hands · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_belt_leather_raidrogue_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👔</div>'"></div>
+            <div><div class="loot-name">Blistercreep Hide Cinch</div><div class="loot-slot">Waist · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_bracer_cloth_raidpriest_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🎀</div>'"></div>
+            <div><div class="loot-name">Wraps of Primordial Thunder</div><div class="loot-slot">Wrists · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_axe_2h_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>⚔️</div>'"></div>
+            <div><div class="loot-name">Fang of the Voidpredator</div><div class="loot-slot">Axe · 2H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_02.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Crystallised Void Shard</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_necklace_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>📿</div>'"></div>
+            <div><div class="loot-name">Gorget of the Roaring Dark</div><div class="loot-slot">Neck</div></div>
+          </a>
+        </div>
+        <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Vorasius drops Nullcore tokens for all four armour classes — the highest-value tier source in the raid.</div>
+      </div>
     </div>
   </article>
 
@@ -650,6 +863,51 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Sequential kick order</strong> — Fractured Images require a named interrupt rotation. One missed kick cascades into dangerous add casts that pressure healers during an orb kill.</div></div>
         <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Higher soak damage</strong> — Rotate defensive cooldowns on both orb DPS squads. Galactic Miasma hits harder.</div></div>
         <div class="wipe-box">Arena covered in Despotic Command puddles from uncontrolled dispels leaves no safe positions for orb paths. Assign dispel order before the pull.</div>
+      </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 249</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 262</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_helm_leather_raiddruid_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪖</div>'"></div>
+            <div><div class="loot-name">Crown of the Fallen King</div><div class="loot-slot">Helm · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_chest_plate_raidwarrior_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Breastplate of Void Infusion</div><div class="loot-slot">Chest · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_pants_cloth_raidmage_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👖</div>'"></div>
+            <div><div class="loot-name">Robes of Galactic Miasma</div><div class="loot-slot">Legs · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_boot_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🥾</div>'"></div>
+            <div><div class="loot-name">Treads of Cosmic Unraveling</div><div class="loot-slot">Feet · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_mace_1h_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🔱</div>'"></div>
+            <div><div class="loot-name">Scepter of Shattered Twilight</div><div class="loot-slot">Mace · 1H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_offhand_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>📖</div>'"></div>
+            <div><div class="loot-name">Tome of Concentrated Void</div><div class="loot-slot">Off-hand</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_03.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Orb of Fractured Images</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_ring_void_d_02.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💍</div>'"></div>
+            <div><div class="loot-name">Band of the Tortured King</div><div class="loot-slot">Ring</div></div>
+          </a>
+        </div>
+        <div class="loot-special"><span class="star">★</span> <strong>Hearthstone: Cosmic Ritual Stone</strong> — Unique toy. Cosmetic collectible, drops from this boss only.</div>
+        <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Fallen-King Salhadaar drops Nullcore tokens for all four armour classes.</div>
       </div>
     </div>
   </article>
@@ -686,6 +944,50 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Less margin on parity</strong> — Twilight Bond activates faster. The parity caller must be proactive — react to a 5% gap, not wait for 10%.</div></div>
         <div class="wipe-box">Unstunned Voidorbs free-casting while the intermission add ramps simultaneously is the most common pull-ender on Heroic. Lock in stuns and Mass Grip, kill the add fast.</div>
       </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 252</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 265</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_shoulder_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Vaelgor's Twilight Spaulders</div><div class="loot-slot">Shoulders · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_helm_cloth_raidmage_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪖</div>'"></div>
+            <div><div class="loot-name">Ezzorak's Gloom Cowl</div><div class="loot-slot">Helm · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_gauntlets_plate_raidwarrior_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧤</div>'"></div>
+            <div><div class="loot-name">Dragonbound Warplate Gauntlets</div><div class="loot-slot">Hands · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_boot_leather_raiddruid_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🥾</div>'"></div>
+            <div><div class="loot-name">Boots of the Midnight Bond</div><div class="loot-slot">Feet · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_sword_1h_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>⚔️</div>'"></div>
+            <div><div class="loot-name">Vaelwing Edge</div><div class="loot-slot">Sword · 1H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_bow_void_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🏹</div>'"></div>
+            <div><div class="loot-name">Nullbeam Recurve</div><div class="loot-slot">Bow · Ranged</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_04.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Gloomfield Condenser</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_necklace_void_d_02.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>📿</div>'"></div>
+            <div><div class="loot-name">Amulet of Twin Twilight</div><div class="loot-slot">Neck</div></div>
+          </a>
+        </div>
+        <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Vaelgor &amp; Ezzorak drop Nullcore tokens for all four armour classes.</div>
+      </div>
     </div>
   </article>
 
@@ -719,6 +1021,54 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Aura overlap is lethal</strong> — Bosses within 40 yards cause extreme damage amplification that kills players in the overlap zone. One drifting tank can wipe the raid instantly.</div></div>
         <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Divine Toll silences</strong> — Senn adds targeted silence mechanics. Assign specific players to interrupt Toll before it completes.</div></div>
         <div class="wipe-box">Lusting without Mass Dispel → two immune bosses → remaining boss energy auras stack → raid dies. Never lust without a plan.</div>
+      </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 252</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 265</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_chest_leather_raiddruid_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👕</div>'"></div>
+            <div><div class="loot-name">Chestguard of Blinding Faith</div><div class="loot-slot">Chest · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_helm_plate_raidpaladin_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪖</div>'"></div>
+            <div><div class="loot-name">Helm of the Lightblinded</div><div class="loot-slot">Helm · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_pants_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👖</div>'"></div>
+            <div><div class="loot-name">Legguards of Senn's Vigil</div><div class="loot-slot">Legs · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_shoulder_cloth_raidpriest_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Mantle of Bellamy's Ward</div><div class="loot-slot">Shoulders · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_mace_2h_light_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🔨</div>'"></div>
+            <div><div class="loot-name">Lightblood's Exalted Hammer</div><div class="loot-slot">Mace · 2H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_shield_light_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Barrier of Divine Pacification</div><div class="loot-slot">Shield</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_light_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Icon of Tyr's Wrath</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_ring_light_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💍</div>'"></div>
+            <div><div class="loot-name">Signet of the Vanguard</div><div class="loot-slot">Ring</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_belt_plate_raidpaladin_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👔</div>'"></div>
+            <div><div class="loot-name">Girdle of Blinded Devotion</div><div class="loot-slot">Waist · Plate</div></div>
+          </a>
+        </div>
+        <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Lightblinded Vanguard drops Nullcore tokens for all four armour classes.</div>
       </div>
     </div>
   </article>
@@ -757,6 +1107,67 @@
         <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Simultaneous overlap</strong> — Gravity Collapse and Cosmic Anomalies spawn at the same time. Assign movement lanes and soak positions for this exact moment before the pull.</div></div>
         <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Dedicated orb team required</strong> — Winging orb interception on Heroic ends at 1 kill and many wipes. Assign a dedicated 4–5 player orb group before the first pull.</div></div>
         <div class="wipe-box">Phase 2 Gravity Collapse + Anomaly overlap with depleted raid cooldowns. This is where most guilds spend their Heroic progression. Map every cooldown. AotC requires her death on Heroic difficulty.</div>
+      </div>
+
+      <!-- LOOT TABLE -->
+      <div class="loot-section">
+        <div class="section-label">Loot Table</div>
+        <div class="loot-ilvl-bar">
+          <span class="ilvl-pill ilvl-n">Normal · ilvl 256</span>
+          <span class="ilvl-pill ilvl-h">Heroic · ilvl 269</span>
+        </div>
+        <div class="loot-grid">
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_helm_leather_raidrogue_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪖</div>'"></div>
+            <div><div class="loot-name">Alleria's Cosmos-Crowned Hood</div><div class="loot-slot">Helm · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_chest_mail_raidshaman_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👕</div>'"></div>
+            <div><div class="loot-name">Hauberk of the Voidstorm Summit</div><div class="loot-slot">Chest · Mail</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_shoulder_plate_raiddeathknight_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🛡</div>'"></div>
+            <div><div class="loot-name">Pauldrons of Gravity's End</div><div class="loot-slot">Shoulders · Plate</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_pants_cloth_raidwarlock_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>👖</div>'"></div>
+            <div><div class="loot-name">Leggings of Cosmic Collapse</div><div class="loot-slot">Legs · Cloth</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_gauntlets_leather_raidmonk_s_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧤</div>'"></div>
+            <div><div class="loot-name">Handwraps of the Final Sentinel</div><div class="loot-slot">Hands · Leather</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_bow_void_alleria_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🏹</div>'"></div>
+            <div><div class="loot-name">Void-Kissed Longbow of Alleria</div><div class="loot-slot">Bow · Ranged</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_dagger_1h_void_d_02.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🗡</div>'"></div>
+            <div><div class="loot-name">Silverstrike Void Dagger</div><div class="loot-slot">Dagger · 1H</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_05.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Anomaly Stabilisation Core</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_trinket_void_d_06.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💎</div>'"></div>
+            <div><div class="loot-name">Heart of the Voidspire</div><div class="loot-slot">Trinket</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_ring_void_d_03.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>💍</div>'"></div>
+            <div><div class="loot-name">Band of the Cosmos Crown</div><div class="loot-slot">Ring</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_cape_void_d_02.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧣</div>'"></div>
+            <div><div class="loot-name">Cloak of the Summit's End</div><div class="loot-slot">Back</div></div>
+          </a>
+          <a class="loot-item q-epic" href="https://www.wowhead.com/midnight" target="_blank" rel="noopener">
+            <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_necklace_void_d_03.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>📿</div>'"></div>
+            <div><div class="loot-name">Choker of Echoing Darkness</div><div class="loot-slot">Neck</div></div>
+          </a>
+        </div>
+        <div class="loot-special"><span class="star">★</span> <strong>Ahead of the Curve: Crown of the Cosmos</strong> — Heroic kill before next tier. Account-wide FoS &amp; cosmetic reward.</div>
+        <div class="tier-note">⬡ Crown of the Cosmos does <strong>not</strong> drop Tier 35 Nullcore tokens. Prioritise bosses 2–5 for tier farming.</div>
       </div>
     </div>
   </article>
