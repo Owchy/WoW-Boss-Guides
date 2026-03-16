@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Voidspire — Raid Boss Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --void: #0a0710;
+    --void-mid: #12101a;
+    --void-surface: #1a1726;
+    --void-border: rgba(160,130,255,0.12);
+    --void-glow: rgba(130,90,255,0.18);
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --gold-dim: rgba(201,168,76,0.25);
+    --purple: #9b6dff;
+    --purple-dim: rgba(155,109,255,0.15);
+    --teal: #3ecfad;
+    --teal-dim: rgba(62,207,173,0.12);
+    --amber: #f09030;
+    --amber-dim: rgba(240,144,48,0.14);
+    --rose: #e05580;
+    --rose-dim: rgba(224,85,128,0.13);
+    --blue: #4a9fff;
+    --blue-dim: rgba(74,159,255,0.13);
+    --pink: #d46fa8;
+    --pink-dim: rgba(212,111,168,0.13);
+    --text-primary: #e8e2f5;
+    --text-secondary: #9e97b8;
+    --text-muted: #5e587a;
+    --normal-bg: rgba(62,207,173,0.08);
+    --normal-border: rgba(62,207,173,0.3);
+    --normal-text: #3ecfad;
+    --heroic-bg: rgba(240,144,48,0.08);
+    --heroic-border: rgba(240,144,48,0.3);
+    --heroic-text: #f09030;
+    --wipe-bg: rgba(224,85,128,0.08);
+    --wipe-border: rgba(224,85,128,0.4);
+    --wipe-text: #f0a0b8;
+    --heroic-tag-bg: rgba(240,144,48,0.15);
+    --heroic-tag-border: rgba(240,144,48,0.35);
+    --heroic-tag-text: #f0b060;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--void);
+    color: var(--text-primary);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ─── Starfield Background ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,0.55) 0%, transparent 100%),
+      radial-gradient(1px 1px at 40% 8%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 70% 30%, rgba(200,180,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 85% 15%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 25% 75%, rgba(180,160,255,0.45) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 10% 50%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.35) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 35% 45%, rgba(200,190,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 78%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 90%, rgba(255,255,255,0.35) 0%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Void nebula glow */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(100,60,200,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 90%, rgba(60,40,150,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 10% 60%, rgba(80,50,180,0.15) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ─── Layout Wrapper ─── */
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* ─── Hero Header ─── */
+  .site-header {
+    text-align: center;
+    padding: 72px 0 48px;
+    position: relative;
+  }
+
+  .site-header::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold));
+  }
+
+  .site-header .eyebrow {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.2s forwards;
+  }
+
+  .site-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    background: linear-gradient(135deg, #e8d9a0 0%, #c9a84c 40%, #9b6dff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.35s forwards;
+  }
+
+  .site-header .subtitle {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--text-secondary);
+    max-width: 460px;
+    margin: 0 auto 28px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.5s forwards;
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.65s forwards;
+  }
+
+  .meta-pill {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    padding: 6px 14px;
+    border: 1px solid var(--void-border);
+    border-radius: 2px;
+    color: var(--text-secondary);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .divider-ornament {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 36px 0;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.8s forwards;
+  }
+
+  .divider-ornament::before,
+  .divider-ornament::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold-dim), transparent);
+  }
+
+  .divider-ornament .gem {
+    width: 8px; height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+
+  /* ─── Difficulty Toggle ─── */
+  .diff-bar {
+    display: flex;
+    gap: 0;
+    border: 1px solid var(--void-border);
+    border-radius: 3px;
+    overflow: hidden;
+    width: fit-content;
+    margin: 0 auto 40px;
+    opacity: 0;
+    animation: fadeUp 0.6s ease 0.9s forwards;
+  }
+
+  .diff-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    padding: 10px 32px;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+
+  .diff-btn::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.25s;
+  }
+
+  .diff-btn:first-child { border-right: 1px solid var(--void-border); }
+
+  .diff-btn.active-n {
+    color: var(--normal-text);
+    background: var(--normal-bg);
+  }
+  .diff-btn.active-n::after { background: var(--teal); }
+
+  .diff-btn.active-h {
+    color: var(--heroic-text);
+    background: var(--heroic-bg);
+  }
+  .diff-btn.active-h::after { background: var(--amber); }
+
+  /* ─── Boss Cards ─── */
+  .boss-card {
+    border: 1px solid var(--void-border);
+    border-radius: 4px;
+    margin-bottom: 12px;
+    background: rgba(255,255,255,0.018);
+    backdrop-filter: blur(8px);
+    overflow: hidden;
+    transition: border-color 0.25s, box-shadow 0.25s;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  .boss-card.revealed {
+    animation: cardReveal 0.5s ease forwards;
+  }
+
+  .boss-card:hover {
+    border-color: var(--void-glow);
+    box-shadow: 0 0 24px rgba(130,90,255,0.08);
+  }
+
+  /* Boss accent colors */
+  .b1 { --boss-color: var(--purple); --boss-dim: var(--purple-dim); }
+  .b2 { --boss-color: var(--teal); --boss-dim: var(--teal-dim); }
+  .b3 { --boss-color: var(--amber); --boss-dim: var(--amber-dim); }
+  .b4 { --boss-color: var(--rose); --boss-dim: var(--rose-dim); }
+  .b5 { --boss-color: var(--blue); --boss-dim: var(--blue-dim); }
+  .b6 { --boss-color: var(--pink); --boss-dim: var(--pink-dim); }
+
+  .boss-header {
+    display: grid;
+    grid-template-columns: 56px 1fr auto auto;
+    align-items: center;
+    gap: 0 16px;
+    padding: 18px 20px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .boss-header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--boss-color);
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .boss-card.open .boss-header::before { opacity: 1; }
+
+  .boss-header:hover { background: rgba(255,255,255,0.025); }
+
+  .boss-num {
+    width: 40px; height: 40px;
+    border: 1px solid var(--boss-color);
+    border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    color: var(--boss-color);
+    background: var(--boss-dim);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .boss-card.open .boss-num {
+    background: var(--boss-color);
+    color: var(--void);
+  }
+
+  .boss-name {
+    font-family: 'Cinzel', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+  }
+
+  .boss-type {
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+  }
+
+  .diff-badge {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    padding: 4px 10px;
+    border-radius: 2px;
+    border: 1px solid;
+    white-space: nowrap;
+  }
+
+  .badge-n { border-color: var(--normal-border); color: var(--normal-text); background: var(--normal-bg); }
+  .badge-h { border-color: var(--heroic-border); color: var(--heroic-text); background: var(--heroic-bg); }
+  .badge-e { border-color: var(--wipe-border); color: var(--wipe-text); background: var(--wipe-bg); }
+
+  .chevron {
+    color: var(--text-muted);
+    font-size: 11px;
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+
+  .boss-card.open .chevron { transform: rotate(180deg); }
+
+  /* ─── Boss Body ─── */
+  .boss-body {
+    display: none;
+    border-top: 1px solid var(--void-border);
+    padding: 24px 24px 24px 28px;
+  }
+
+  .boss-body.open { display: block; }
+
+  .diff-section { display: none; }
+  .diff-section.visible { display: block; }
+
+  .tldr {
+    border-radius: 3px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.7;
+    font-style: italic;
+    border-left: 3px solid;
+  }
+
+  .tldr-n {
+    background: var(--normal-bg);
+    border-color: var(--teal);
+    color: #b0ead8;
+  }
+
+  .tldr-h {
+    background: var(--heroic-bg);
+    border-color: var(--amber);
+    color: #e8c89a;
+  }
+
+  .section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--void-border);
+  }
+
+  .mech {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+    align-items: flex-start;
+  }
+
+  .mdot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--boss-color);
+    flex-shrink: 0;
+    margin-top: 8px;
+    box-shadow: 0 0 6px var(--boss-color);
+  }
+
+  .mtext {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-primary);
+  }
+
+  .mtext strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .heroic-tag {
+    display: inline-block;
+    font-family: 'Cinzel', serif;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    background: var(--heroic-tag-bg);
+    border: 1px solid var(--heroic-tag-border);
+    color: var(--heroic-tag-text);
+    padding: 2px 7px;
+    border-radius: 2px;
+    margin-right: 6px;
+    vertical-align: middle;
+    position: relative;
+    top: -1px;
+  }
+
+  .wipe-box {
+    margin-top: 18px;
+    padding: 12px 16px;
+    border-left: 3px solid var(--rose);
+    background: var(--wipe-bg);
+    border-radius: 0 3px 3px 0;
+    font-size: 15px;
+    color: var(--wipe-text);
+    line-height: 1.6;
+  }
+
+  .wipe-box::before {
+    content: '⚠ ';
+    font-style: normal;
+    opacity: 0.7;
+  }
+
+  /* ─── Footer ─── */
+  .site-footer {
+    text-align: center;
+    padding: 48px 0 24px;
+    border-top: 1px solid var(--void-border);
+    margin-top: 60px;
+  }
+
+  .site-footer p {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+  }
+
+  .site-footer a {
+    color: var(--gold-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .site-footer a:hover { color: var(--gold); }
+
+  /* ─── Animations ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── Scrollbar ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--void); }
+  ::-webkit-scrollbar-thumb { background: rgba(155,109,255,0.3); border-radius: 3px; }
+
+  /* ─── Mobile ─── */
+  @media (max-width: 600px) {
+    .boss-header { grid-template-columns: 44px 1fr auto; }
+    .diff-badge { display: none; }
+    .boss-num { width: 34px; height: 34px; font-size: 13px; }
+    .boss-name { font-size: 14px; }
+    .boss-body { padding: 18px 16px 18px 18px; }
+    .diff-btn { padding: 10px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- ─── Header ─── -->
+  <header class="site-header">
+    <p class="eyebrow">WoW Midnight · Season 1 · Voidstorm, Quel'Thalas</p>
+    <h1>The Voidspire</h1>
+    <p class="subtitle">A raid guide for the ascent through six corrupted encounters — Normal &amp; Heroic</p>
+    <div class="header-meta">
+      <span class="meta-pill">6 Bosses</span>
+      <span class="meta-pill">Opens March 17, 2026</span>
+      <span class="meta-pill">ilvl 246–269</span>
+      <span class="meta-pill">Tier 35</span>
+    </div>
+  </header>
+
+  <div class="divider-ornament"><div class="gem"></div></div>
+
+  <!-- ─── Difficulty Toggle ─── -->
+  <div class="diff-bar">
+    <button class="diff-btn active-n" id="btn-n" onclick="setDiff('n')">Normal</button>
+    <button class="diff-btn" id="btn-h" onclick="setDiff('h')">Heroic</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 1 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b1 open revealed" data-index="0">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">I</div>
+      <div>
+        <div class="boss-name">Imperator Averzian</div>
+        <div class="boss-type">Grid Control · Void Tic-Tac-Toe · Add Denial</div>
+      </div>
+      <span class="diff-badge badge-n diff-label">Normal — Medium</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body open">
+      <!-- NORMAL -->
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">The arena is a 3×3 grid. Averzian spawns three Voidshapers per wave that will claim a square if not stopped. Soak two of the three each wave so only one square is permanently claimed per round. If he ever completes three in a row, the raid instantly wipes to infinite adds.</div>
+        <div class="section-label">Key Mechanics</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Umbral Collapse</strong> — Marks 3 squares. Stack with the called marker to destroy that Voidshaper. You can only block 2 per wave — deliberately allow 1 non-threatening square to be claimed.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Dark Tears adds</strong> — Spawn in claimed squares. Assign 2 DPS to kill them fast. Tank must keep the boss away from active tears to prevent an empowerment buff.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Shatter</strong> — Tank cleave. Standard tank swap. Damage is steady but manageable on Normal.</div></div>
+        <div class="wipe-box">Three squares in a row → March of the Endless. Call soak positions before every single wave.</div>
+      </div>
+      <!-- HEROIC -->
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">Same Tic-Tac-Toe loop, but Averzian now applies simultaneous dispellable debuffs. If healers panic-dispel without coordination the overlapping explosions break grid positioning and cascade into missed soaks. Pre-assign a strict dispel order.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Coordinated dispels required</strong> — Simultaneous dispels cause overlapping raid-wide damage. Assign a strict dispel rotation — never reactive-cleanse.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Harder DPS cleanup</strong> — Dark Tears waves are more punishing. Delayed add kills directly threaten grid integrity.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Higher soak damage</strong> — Umbral Collapse hits harder. Ensure 3+ players soak each marked position so no one dies mid-wave.</div></div>
+        <div class="wipe-box">Uncoordinated dispels fragment positioning → missed soaks → three-in-a-row. Lock in your dispel order before pulling.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 2 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b2" data-index="1">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">II</div>
+      <div>
+        <div class="boss-name">Vorasius</div>
+        <div class="boss-type">Crystal Walls · Add Kiting · Healer Throughput Check</div>
+      </div>
+      <span class="diff-badge badge-n diff-label">Normal — Med–High</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body">
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Stationary boss that slams down crystal walls dividing the arena. A deadly sweeping Void Breath beam kills anyone behind standing walls. Kite Blistercreep adds into the walls to explode them. On Normal, one add breaks one wall. Healing ramps throughout as Primordial Roar stacks.</div>
+        <div class="section-label">Key Mechanics</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Crystal Walls</strong> — Spawn after Colossal Throw. Kite one Blistercreep into each wall to shatter it before Void Breath fires.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Void Breath</strong> — Sweeping beam. Everyone must be clear of standing walls. Assign 2 kite specialists for consistent add control.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Primordial Roar</strong> — Stacking raid damage. Rotate healing cooldowns throughout — don't save them all for late in the fight.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Smashing Frenzy</strong> — Tank must face it and take the hit, otherwise the raid takes a lethal area explosion.</div></div>
+        <div class="wipe-box">Void Breath firing with walls still standing. 1 add = 1 wall on Normal. Time your kites carefully.</div>
+      </div>
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">Same loop, but on Heroic it takes 2 Blistercreep deaths to break a single wall — not one. This doubles the add management workload. Primordial Roar ramps significantly faster. This is a genuine healer gear and cooldown-rotation check.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>2 adds per wall</strong> — Each wall requires 2 Blistercreep deaths to shatter. Designate clear kiting pairs and lanes before pulling. Disorganised pathing causes failed breaks and wipes.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Faster Primordial Roar ramp</strong> — Healing requirements spike sharply in later phases. Assign externals to tanks and map every cooldown rotation before the pull.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Tighter DPS window</strong> — Reaching the third Void Breath with walls up is typically fatal. Plan cooldowns early enough to shorten the fight.</div></div>
+        <div class="wipe-box">Kiting only 1 add onto a Heroic wall — it will not break. Pre-assign your kite pairs and communicate wall status in real time.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 3 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b3" data-index="2">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">III</div>
+      <div>
+        <div class="boss-name">Fallen-King Salhadaar</div>
+        <div class="boss-type">Void Orbs · Staggered Kills · Interrupt Rotation · Burn Windows</div>
+      </div>
+      <span class="diff-badge badge-n diff-label">Normal — Medium</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body">
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Two Concentrated Void orbs drift toward the boss. If either reaches him it is an instant wipe. Burn the orbs but kill them at least 8 seconds apart so Galactic Miasma DoT stacks don't overlap and overwhelm healers. The active tank must step away from the raid during Shattering Twilight to keep orb lanes clear.</div>
+        <div class="section-label">Key Mechanics</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Void Orbs</strong> — Assign 2 DPS per orb. Kill orb 1, wait 8 seconds for Galactic Miasma to fall off, then kill orb 2. Never overlap kills.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Fractured Image adds</strong> — Interrupt or stun on spawn. One dedicated interrupter per add is sufficient on Normal.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Cosmic Unraveling</strong> — At 100 energy the boss takes increased damage. Dump all cooldowns here.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Shattering Twilight</strong> — Active tank steps clear of the raid so spike patterns do not block orb lanes.</div></div>
+        <div class="wipe-box">An orb reaching Salhadaar is an instant wipe. Orbs are always the absolute priority.</div>
+      </div>
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">Orb management is the same but orb kills now apply Despotic Command, causing marked players to drop a spreading puddle when the debuff ends or is dispelled. Uncontrolled dispels flood the arena. Fractured Images on Heroic require a strict sequential kick order, not just reactive interrupts.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Despotic Command puddles</strong> — Marked players drop a puddle when the debuff expires or is dispelled. Stack puddles neatly at designated wall corners. Random early dispels destroy the arena floor.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Sequential kick order</strong> — Fractured Images require a named interrupt rotation. One missed kick cascades into dangerous add casts that pressure healers during an orb kill.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Higher soak damage</strong> — Rotate defensive cooldowns on both orb DPS squads. Galactic Miasma hits harder.</div></div>
+        <div class="wipe-box">Arena covered in Despotic Command puddles from uncontrolled dispels leaves no safe positions for orb paths. Assign dispel order before the pull.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 4 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b4" data-index="3">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">IV</div>
+      <div>
+        <div class="boss-name">Vaelgor &amp; Ezzorak</div>
+        <div class="boss-type">Dual Dragons · HP Parity · Gloom Soaks · First Major Wall</div>
+      </div>
+      <span class="diff-badge badge-n diff-label">Normal — High</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body">
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Two dragons that must stay more than 15 yards apart and die within 10% HP of each other — otherwise they gain 100% bonus damage until the imbalance is fixed. Vaelgor fires a targeted Dread Breath cone. Ezzorak fires Gloom orbs that 5 players must intercept on the way to shrink the resulting puddle. During intermission: stack in the Radiant Barrier and kill Manifestation of Midnight fast.</div>
+        <div class="section-label">Key Mechanics</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>HP parity</strong> — Split DPS evenly. A dedicated caller watches HP percentages and redirects DPS if one dragon falls behind. Never exceed a 10% gap.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Dread Breath</strong> — Target steps the cone to the side, then gets dispelled. Never stand behind either dragon — Tail Lash will launch you.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Gloom orbs</strong> — Aim to blue marker. 5 ranged players soak on the path to shrink the puddle. Rotate soak teams every orb due to the 1-minute Diminish debuff.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Void Howl + Voidorbs</strong> — Stack tight so orbs spawn clustered. Snap Nullzone tethers fast (tank snaps last), then AoE down the Voidorbs immediately.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Intermission</strong> — Both dragons cast Midnight Flames. Stack in Radiant Barrier. Purple circle targets step to the side. Kill Manifestation of Midnight before it ramps.</div></div>
+        <div class="wipe-box">HP imbalance over 10% triggers a 100% damage buff that overwhelms tanks in seconds. Use a designated parity caller and act early.</div>
+      </div>
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">All the same mechanics, significantly more punishing. Voidorbs now free-cast Voidbolt if not immediately stunned — use Mass Grip and AoE burst. The Manifestation of Midnight in intermission gains 75% attack speed every 30 seconds it survives, making slows progressively useless. Kill it before the first 30-second mark.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Voidorbs free-cast</strong> — Unstunned orbs channel Voidbolt, dealing dangerous raid-wide damage. Stun them the moment Void Howl resolves. Mass Grip is extremely valuable here to cluster orbs for AoE.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Manifestation ramps fast</strong> — Every 30 seconds: +75% attack speed and slows become 50% less effective. Kill it before the first 30-second mark or it becomes nearly unkillable.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Less margin on parity</strong> — Twilight Bond activates faster. The parity caller must be proactive — react to a 5% gap, not wait for 10%.</div></div>
+        <div class="wipe-box">Unstunned Voidorbs free-casting while the intermission add ramps simultaneously is the most common pull-ender on Heroic. Lock in stuns and Mass Grip, kill the add fast.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 5 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b5" data-index="4">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">V</div>
+      <div>
+        <div class="boss-name">Lightblinded Vanguard</div>
+        <div class="boss-type">Triple Council · Rotating Auras · Assignment-Heavy · Paladin Toolkit</div>
+      </div>
+      <span class="diff-badge badge-n diff-label">Normal — High</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body">
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Three simultaneous paladin bosses: Lightblood (Retribution), Bellamy (Protection), and Senn (Holy). Each has an independent energy bar and applies a different raid-wide aura when full. Keep all three more than 40 yards apart — overlapping auras cause extreme amplification or full damage reduction. Burst during Lightblood. Survive Senn's pacification with pre-cast instants.</div>
+        <div class="section-label">Aura Reference</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Lightblood aura (offensive)</strong> — Raid gains a damage buff. Pop all DPS cooldowns immediately. This is your burst window.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Bellamy aura (defensive)</strong> — Boss damage reduced. Save cooldowns, let healers breathe.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Senn aura (pacification)</strong> — Raid-wide silence. Pre-cast all HoTs and instant-cast heals before it lands. Healers use instants only during this window.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Boss spacing</strong> — Keep all three more than 40 yards apart at all times. Assign tank positions before pulling.</div></div>
+        <div class="wipe-box">Aura overlap from bosses drifting too close, or Senn's pacification landing on an unprepared raid.</div>
+      </div>
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">The biggest Heroic trap: using Heroism/Bloodlust activates Divine Shield on two bosses, making them immune to damage until Mass Dispelled. Never lust without a Mass Dispel ready. Aura overlaps are lethal, not just punishing. Senn also casts Divine Toll, adding targeted silences on top of the pacification aura.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Heroism triggers Divine Shields</strong> — Lust/BL makes two bosses immune to all damage until Mass Dispelled. Most guilds save lust for after the immunity clears. Never lust without confirming a Mass Dispel is ready.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Aura overlap is lethal</strong> — Bosses within 40 yards cause extreme damage amplification that kills players in the overlap zone. One drifting tank can wipe the raid instantly.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Divine Toll silences</strong> — Senn adds targeted silence mechanics. Assign specific players to interrupt Toll before it completes.</div></div>
+        <div class="wipe-box">Lusting without Mass Dispel → two immune bosses → remaining boss energy auras stack → raid dies. Never lust without a plan.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 6 -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card b6" data-index="5">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num">VI</div>
+      <div>
+        <div class="boss-name">Crown of the Cosmos</div>
+        <div class="boss-type">Alleria Windrunner · Multi-Phase · AotC &amp; World First Boss</div>
+      </div>
+      <span class="diff-badge badge-e diff-label">Normal — Very High</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body">
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Alleria Windrunner across three stages. Phase 1: tank all three Undying Sentinels immediately — each untanked sentinel stacks Echoing Darkness and kills the raid before the fight properly begins. Intermission: constant movement, avoid knockbacks. Phase 2: Gravity Collapse overlaps with Cosmic Anomalies — every cooldown must be planned before the pull.</div>
+        <div class="section-label">Phase 1 — Undying Sentinels</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Tank all three Sentinels immediately</strong> — The single most common cause of early wipes on Normal. All three must be grabbed the moment they spawn or Echoing Darkness stacks rapidly wipe the raid.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Silverstrike Arrow</strong> — Navigate through the correct cleansing line. It removes debuffs but applies a brief healing reduction. Don't chain multiple players into the same line simultaneously.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Void Zones</strong> — Persistent and expanding throughout all phases. Manage spacing constantly.</div></div>
+        <div class="section-label">Intermission</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Grasp of Emptiness</strong> — Beam explosions requiring constant movement. Avoid knockback floor hazards. Use raid-wide cooldowns here to ease the transition into Phase 2.</div></div>
+        <div class="section-label">Phase 2 — Crown of the Cosmos</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Gravity Collapse + Cosmic Anomalies</strong> — The primary coordination check. Both mechanics occur in Phase 2. Execute both cleanly with planned cooldowns or the raid dies to combined pressure.</div></div>
+        <div class="wipe-box">Most common: failing to grab all 3 Sentinels in Phase 1. Second most common: entering Phase 2 with no cooldowns available.</div>
+      </div>
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">All Phase 1 mechanics are more severe. Silverstrike now applies Null Corona healing absorbs — dispelling incorrectly causes the absorb to jump to nearby players. Phase 2 Alleria's damage ramps to lethal far faster. Gravity Collapse and Cosmic Anomaly overlap simultaneously with no margin for error. This is the AotC fight. Map every cooldown before you pull.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Null Corona absorbs</strong> — Silverstrike Arrows apply a large healing absorb. Incorrectly dispelling it causes the absorb to jump to adjacent players. Assign a named dispel order — no reactive mass-cleansing.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Phase 2 ramp is lethal</strong> — Alleria's damage increases much faster. Entering Phase 2 with cooldowns spent from sloppy Phase 1 usage is almost always fatal. Preserve them.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><span class="heroic-tag">Heroic</span><strong>Simultaneous overlap</strong> — Gravity Collapse and Cosmic Anomalies spawn at the same time. Assign movement lanes and soak positions for this exact moment before the pull.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Dedicated orb team required</strong> — Winging orb interception on Heroic ends at 1 kill and many wipes. Assign a dedicated 4–5 player orb group before the first pull.</div></div>
+        <div class="wipe-box">Phase 2 Gravity Collapse + Anomaly overlap with depleted raid cooldowns. This is where most guilds spend their Heroic progression. Map every cooldown. AotC requires her death on Heroic difficulty.</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── Footer ─── -->
+  <footer class="site-footer">
+    <p>The Voidspire · WoW Midnight Season 1 · <a href="https://www.wowhead.com/guide/midnight/raids/the-voidspire-overview-location-rewards-bosses" target="_blank" rel="noopener">Wowhead</a> · <a href="https://www.method.gg" target="_blank" rel="noopener">Method</a></p>
+  </footer>
+
+</div><!-- /page-wrap -->
+
+<script>
+  let currentDiff = 'n';
+
+  const LABELS = {
+    b1: { n: 'Normal — Medium',   h: 'Heroic — Med–High' },
+    b2: { n: 'Normal — Med–High', h: 'Heroic — High' },
+    b3: { n: 'Normal — Medium',   h: 'Heroic — Med–High' },
+    b4: { n: 'Normal — High',     h: 'Heroic — High' },
+    b5: { n: 'Normal — High',     h: 'Heroic — Very High' },
+    b6: { n: 'Normal — Very High',h: 'Heroic — Extreme' },
+  };
+
+  function setDiff(d) {
+    currentDiff = d;
+    document.getElementById('btn-n').className = 'diff-btn' + (d === 'n' ? ' active-n' : '');
+    document.getElementById('btn-h').className = 'diff-btn' + (d === 'h' ? ' active-h' : '');
+
+    document.querySelectorAll('.diff-section').forEach(s => {
+      s.classList.toggle('visible', s.dataset.diff === d);
+    });
+
+    document.querySelectorAll('.diff-label').forEach(badge => {
+      const card = badge.closest('.boss-card');
+      for (const cls of card.classList) {
+        if (LABELS[cls]) {
+          badge.textContent = LABELS[cls][d];
+          badge.className = 'diff-badge diff-label ' + (d === 'n' ? 'badge-n' : d === 'h' && cls === 'b6' ? 'badge-e' : 'badge-h');
+          break;
+        }
+      }
+    });
+  }
+
+  function toggle(card) {
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+    const body = card.querySelector('.boss-body');
+    body.classList.toggle('open', !isOpen);
+  }
+
+  // Scroll-triggered card reveals
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const delay = parseInt(card.dataset.index || 0) * 80;
+        setTimeout(() => card.classList.add('revealed'), delay);
+        observer.unobserve(card);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.boss-card:not(.revealed)').forEach(card => observer.observe(card));
+</script>
+</body>
+</html>
