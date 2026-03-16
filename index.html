@@ -515,6 +515,98 @@
   ::-webkit-scrollbar-track { background: var(--void); }
   ::-webkit-scrollbar-thumb { background: rgba(155,109,255,0.3); border-radius: 3px; }
 
+  /* ─── Per-Boss Collapsible Video ─── */
+  .boss-video-section {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--void-border);
+  }
+
+  .video-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background: none;
+    border: 1px solid var(--void-border);
+    border-radius: 3px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    transition: border-color 0.2s, background 0.2s, color 0.2s;
+    text-align: left;
+  }
+
+  .video-toggle-btn:hover {
+    border-color: var(--boss-color);
+    background: var(--boss-dim);
+    color: var(--boss-color);
+  }
+
+  .video-toggle-btn.open {
+    border-color: var(--boss-color);
+    color: var(--boss-color);
+    background: var(--boss-dim);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: transparent;
+  }
+
+  .video-toggle-btn .vid-icon {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border: 1px solid currentColor;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8px;
+  }
+
+  .video-toggle-btn .vid-chevron {
+    margin-left: auto;
+    font-size: 11px;
+    transition: transform 0.22s;
+  }
+
+  .video-toggle-btn.open .vid-chevron { transform: rotate(180deg); }
+
+  .video-embed-wrap {
+    display: none;
+    border: 1px solid var(--boss-color);
+    border-top: none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    background: #000;
+  }
+
+  .video-embed-wrap.open { display: block; }
+
+  .video-embed-wrap iframe {
+    width: 100%; height: 100%;
+    border: none;
+    display: block;
+  }
+
+  .video-unavailable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 16px;
+    border: 1px dashed var(--void-border);
+    border-radius: 3px;
+    font-family: 'Crimson Pro', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-top: 0;
+  }
+
   /* ─── Loot Table ─── */
   .loot-section {
     margin-top: 22px;
@@ -755,6 +847,17 @@
             <div><div class="loot-name">Cloak of the Voidspire Vanguard</div><div class="loot-slot">Back</div></div>
           </a>
         </div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+            <span class="vid-icon">▶</span>
+            Video Guide — Imperator Averzian
+            <span class="vid-chevron">▾</span>
+          </button>
+          <div class="video-embed-wrap">
+            <iframe data-src="https://www.youtube.com/embed/rql9qHN0r80?rel=0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </article>
@@ -829,12 +932,20 @@
           </a>
         </div>
         <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Vorasius drops Nullcore tokens for all four armour classes — the highest-value tier source in the raid.</div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+            <span class="vid-icon">▶</span>
+            Video Guide — Vorasius
+            <span class="vid-chevron">▾</span>
+          </button>
+          <div class="video-embed-wrap">
+            <iframe data-src="https://www.youtube.com/embed/0jhUHrQwqok?rel=0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </article>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- BOSS 3 -->
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b3" data-index="2">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
@@ -908,12 +1019,20 @@
         </div>
         <div class="loot-special"><span class="star">★</span> <strong>Hearthstone: Cosmic Ritual Stone</strong> — Unique toy. Cosmetic collectible, drops from this boss only.</div>
         <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Fallen-King Salhadaar drops Nullcore tokens for all four armour classes.</div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+            <span class="vid-icon">▶</span>
+            Video Guide — Fallen-King Salhadaar
+            <span class="vid-chevron">▾</span>
+          </button>
+          <div class="video-embed-wrap">
+            <iframe data-src="https://www.youtube.com/embed/w_FDMEPqraE?rel=0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </article>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- BOSS 4 -->
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b4" data-index="3">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
@@ -987,12 +1106,20 @@
           </a>
         </div>
         <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Vaelgor &amp; Ezzorak drop Nullcore tokens for all four armour classes.</div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+            <span class="vid-icon">▶</span>
+            Video Guide — Vaelgor &amp; Ezzorak
+            <span class="vid-chevron">▾</span>
+          </button>
+          <div class="video-embed-wrap">
+            <iframe data-src="https://www.youtube.com/embed/nzjoZIM4Zs4?start=675&rel=0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </article>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- BOSS 5 -->
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b5" data-index="4">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
@@ -1069,12 +1196,20 @@
           </a>
         </div>
         <div class="tier-note">⬡ <strong>Tier 35 Token:</strong> Lightblinded Vanguard drops Nullcore tokens for all four armour classes.</div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+            <span class="vid-icon">▶</span>
+            Video Guide — Lightblinded Vanguard
+            <span class="vid-chevron">▾</span>
+          </button>
+          <div class="video-embed-wrap">
+            <iframe data-src="https://www.youtube.com/embed/33PSSgPN-rU?start=1065&rel=0" allowfullscreen></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </article>
-
-  <!-- ═══════════════════════════════════════════ -->
-  <!-- BOSS 6 -->
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b6" data-index="5">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
@@ -1168,6 +1303,12 @@
         </div>
         <div class="loot-special"><span class="star">★</span> <strong>Ahead of the Curve: Crown of the Cosmos</strong> — Heroic kill before next tier. Account-wide FoS &amp; cosmetic reward.</div>
         <div class="tier-note">⬡ Crown of the Cosmos does <strong>not</strong> drop Tier 35 Nullcore tokens. Prioritise bosses 2–5 for tier farming.</div>
+        <!-- VIDEO -->
+        <div class="boss-video-section">
+          <div class="video-unavailable">
+            <span>🎬</span> Video guide not yet available — check back after release.
+          </div>
+        </div>
       </div>
     </div>
   </article>
@@ -1181,6 +1322,29 @@
 
 <script>
   let currentDiff = 'n';
+
+  /* ─── Collapsible per-boss video ─── */
+  function toggleVideo(btn) {
+    const wrap = btn.nextElementSibling;
+    const isOpen = wrap.classList.contains('open');
+    // Close all other open video wraps first
+    document.querySelectorAll('.video-embed-wrap.open').forEach(w => {
+      w.classList.remove('open');
+      w.previousElementSibling.classList.remove('open');
+      // Pause the iframe by clearing src
+      const iframe = w.querySelector('iframe');
+      if (iframe) iframe.src = '';
+    });
+    if (!isOpen) {
+      wrap.classList.add('open');
+      btn.classList.add('open');
+      // Lazy-load the iframe src from data-src
+      const iframe = wrap.querySelector('iframe');
+      if (iframe && iframe.dataset.src) {
+        iframe.src = iframe.dataset.src;
+      }
+    }
+  }
 
   const LABELS = {
     b1: { n: 'Normal — Medium',   h: 'Heroic — Med–High' },
