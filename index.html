@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WoW Midnight Season 1 — Raid Boss Guide</title>
+<title>WoW Midnight Season 1 — Raid Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -749,6 +749,21 @@
 
   .tier-note strong { color: #c9b0ff; font-weight: 600; }
 
+
+  /* ─── Raid Banners ─── */
+  .raid-banner {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: 6px;
+    display: block;
+    margin-bottom: 24px;
+    opacity: 0.85;
+    border: 1px solid var(--void-border);
+    transition: opacity 0.4s;
+  }
+  .raid-banner.visible { opacity: 0.85; }
   /* ─── Raid Selector ─── */
   .raid-selector {
     display: flex;
@@ -884,6 +899,7 @@
   <!-- RAID: THE VOIDSPIRE -->
   <!-- ════════════════════════════════════════════════════ -->
   <div class="raid-section active" id="raid-voidspire">
+  <img class="raid-banner" src="images/voidspire_banner.jpg" alt="The Voidspire">
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 1 -->
@@ -998,7 +1014,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 2 -->
   <!-- ═══════════════════════════════════════════ -->
-  <article class="boss-card b2" data-index="1">
+  <article class="boss-card b2" data-index="1" data-index="1">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
       <div class="boss-num"><img src="images/vorasius.png" alt="Vorasius"></div>
       <div>
@@ -1088,7 +1104,7 @@
     </div>
   </article>
   <!-- ═══════════════════════════════════════════ -->
-  <article class="boss-card b3" data-index="2">
+  <article class="boss-card b3" data-index="2" data-index="2">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
       <div class="boss-num"><img src="images/fallen_king.png" alt="Fallen-King Salhadaar"></div>
       <div>
@@ -1188,7 +1204,7 @@
     </div>
   </article>
   <!-- ═══════════════════════════════════════════ -->
-  <article class="boss-card b4" data-index="3">
+  <article class="boss-card b4" data-index="3" data-index="3">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
       <div class="boss-num"><img src="images/vaelgor_ezzorak.png" alt="Vaelgor & Ezzorak"></div>
       <div>
@@ -1280,7 +1296,7 @@
     </div>
   </article>
   <!-- ═══════════════════════════════════════════ -->
-  <article class="boss-card b5" data-index="4">
+  <article class="boss-card b5" data-index="4" data-index="4">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
       <div class="boss-num"><img src="images/lightblinded_vanguard.png" alt="Lightblinded Vanguard"></div>
       <div>
@@ -1367,7 +1383,7 @@
     </div>
   </article>
   <!-- ═══════════════════════════════════════════ -->
-  <article class="boss-card b6" data-index="5">
+  <article class="boss-card b6" data-index="5" data-index="5">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
       <div class="boss-num"><img src="images/crown_of_the_cosmos.png" alt="Crown of the Cosmos"></div>
       <div>
@@ -1477,6 +1493,7 @@
   <!-- RAID: THE DREAMRIFT -->
   <!-- ════════════════════════════════════════════════════ -->
   <div class="raid-section" id="raid-dreamrift">
+  <img class="raid-banner" src="images/dreamrift_banner.jpg" alt="The Dreamrift">
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 1 — CHIMAERUS -->
@@ -1571,7 +1588,7 @@
   /* ─── Raid Switcher ─── */
   const RAID_META = {
     voidspire: {
-      eyebrow: 'WoW Midnight · Season 1 · Voidstorm, Quel'Thalas',
+      eyebrow: 'WoW Midnight · Season 1 · Voidstorm, Quel\'Thalas',
       title:   'The Voidspire',
       subtitle:'A raid guide for the ascent through six corrupted encounters — Normal & Heroic',
       pills:   ['6 Bosses', 'Opens March 17, 2026', 'ilvl 246–269', 'Tier 35']
