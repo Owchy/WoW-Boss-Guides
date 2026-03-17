@@ -764,6 +764,269 @@
     transition: opacity 0.4s;
   }
   .raid-banner.visible { opacity: 0.85; }
+  /* ─── Mythic+ Accent ─── */
+  .raid-mplus { --raid-accent: #22d3ee; }
+
+  /* ─── Mythic+ Section Layout ─── */
+  .mplus-header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--void-border);
+    margin-bottom: 28px;
+  }
+  .mplus-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+  }
+  .mplus-header p {
+    color: var(--text-secondary);
+    font-size: 15px;
+    max-width: 620px;
+    margin: 0 auto 16px;
+    line-height: 1.6;
+  }
+  .mplus-pills {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 12px;
+  }
+  .mplus-pill {
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(34,211,238,0.25);
+    color: #22d3ee;
+    background: rgba(34,211,238,0.08);
+  }
+
+  /* ─── Season info box ─── */
+  .mplus-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .mplus-info-box {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--void-border);
+    border-radius: 4px;
+    padding: 16px 18px;
+  }
+  .mplus-info-box h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: #22d3ee;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .mplus-info-box p, .mplus-info-box li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .mplus-info-box ul { padding-left: 16px; }
+  .mplus-info-box strong { color: var(--text-primary); }
+
+  /* ─── ilvl table ─── */
+  .mplus-ilvl-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+  .mplus-ilvl-table th {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: #22d3ee;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(34,211,238,0.2);
+  }
+  .mplus-ilvl-table td {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--void-border);
+    color: var(--text-secondary);
+  }
+  .mplus-ilvl-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .mplus-ilvl-table td:first-child { color: var(--text-primary); font-weight: 600; }
+  .mplus-ilvl-table .ilvl-hero { color: #f09030; }
+  .mplus-ilvl-table .ilvl-myth { color: #9b6dff; }
+
+  /* ─── Dungeon cards ─── */
+  .dungeon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .dungeon-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--void-border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  .dungeon-card.revealed {
+    animation: cardReveal 0.4s ease forwards;
+  }
+  .dungeon-card:hover {
+    border-color: rgba(34,211,238,0.25);
+    box-shadow: 0 0 18px rgba(34,211,238,0.06);
+  }
+  .dungeon-card.open { border-color: rgba(34,211,238,0.3); }
+
+  .dungeon-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    background: rgba(255,255,255,0.02);
+    transition: background 0.2s;
+    position: relative;
+  }
+  .dungeon-header::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0; width: 3px;
+    background: #22d3ee;
+    opacity: 0.5;
+    transition: opacity 0.2s;
+  }
+  .dungeon-card.open .dungeon-header::before { opacity: 1; }
+  .dungeon-header:hover { background: rgba(255,255,255,0.04); }
+
+  .dungeon-num {
+    width: 48px; height: 48px;
+    border-radius: 4px;
+    border: 1px solid rgba(34,211,238,0.3);
+    flex-shrink: 0;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    background: rgba(34,211,238,0.08);
+  }
+  .dungeon-card.open .dungeon-num { border-color: rgba(34,211,238,0.6); }
+  .dungeon-header:hover .dungeon-num img { transform: scale(1.06); }
+  .dungeon-num img { transition: transform 0.2s; }
+
+  .dungeon-name {
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+  .dungeon-type {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .dungeon-chevron {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .dungeon-card.open .dungeon-chevron { transform: rotate(180deg); }
+
+  .dungeon-body {
+    display: none;
+    padding: 16px 18px;
+    border-top: 1px solid var(--void-border);
+  }
+  .dungeon-card.open .dungeon-body { display: block; }
+
+  .dungeon-section-label {
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #22d3ee;
+    margin: 16px 0 8px;
+  }
+  .dungeon-section-label:first-child { margin-top: 0; }
+
+  .dungeon-boss {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--void-border);
+  }
+  .dungeon-boss:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+  .dungeon-boss-name {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #22d3ee;
+    margin-bottom: 6px;
+  }
+  .dungeon-tip {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    border-left: 2px solid rgba(34,211,238,0.2);
+  }
+  .dungeon-tip strong { color: var(--text-primary); }
+  .dungeon-tip .role-t { color: #4a9fff; font-size: 11px; font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+  .dungeon-tip .role-h { color: #3ecfad; font-size: 11px; font-family: 'Cinzel', serif; letter-spacing: 0.06em; }
+
+  /* ─── Rewards section ─── */
+  .mplus-rewards {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid var(--void-border);
+    border-radius: 4px;
+    padding: 20px;
+    margin-bottom: 28px;
+  }
+  .mplus-rewards h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: #22d3ee;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .reward-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .reward-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #22d3ee;
+    flex-shrink: 0;
+    margin-top: 7px;
+  }
+  .reward-row strong { color: var(--text-primary); }
+
+  @media (max-width: 600px) {
+    .mplus-info-grid { grid-template-columns: 1fr; }
+    .dungeon-grid { grid-template-columns: 1fr; }
+  }
+
   /* ─── Raid Selector ─── */
   .raid-selector {
     display: flex;
@@ -878,6 +1141,12 @@
       <span class="raid-btn-text">
         <span class="raid-btn-name">The Dreamrift</span>
         <span class="raid-btn-sub">Harandar · 1 Boss</span>
+      </span>
+    </button>
+    <button class="raid-btn raid-mplus" onclick="setRaid('mplus')" style="background:linear-gradient(135deg,#0a0f1e 0%,#0d1a2e 40%,#0a1528 100%)">
+      <span class="raid-btn-text">
+        <span class="raid-btn-name">Mythic+</span>
+        <span class="raid-btn-sub">Season 1 · 8 Dungeons</span>
       </span>
     </button>
   </div>
@@ -1598,6 +1867,321 @@
 
   </div><!-- /raid-dreamrift -->
 
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- MYTHIC+ SECTION -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="raid-section" id="raid-mplus">
+
+    <div class="mplus-header">
+      <h2>Mythic+ Season 1 — Midnight</h2>
+      <p>Eight dungeons across the Quel'Thalas and beyond. Mythic 0 opens March 17, 2026 alongside the raids. Mythic+ keystones unlock the week of March 24, 2026.</p>
+      <div class="mplus-pills">
+        <span class="mplus-pill">8 Dungeons</span>
+        <span class="mplus-pill">M+ Unlocks Mar 24</span>
+        <span class="mplus-pill">KSM @ 2,000 Rating</span>
+        <span class="mplus-pill">KSL @ 3,000 Rating</span>
+      </div>
+    </div>
+
+    <!-- Info Grid -->
+    <div class="mplus-info-grid">
+      <div class="mplus-info-box">
+        <h4>Portal Room</h4>
+        <p>The Timeways portal sits at <strong>53.3, 66.1</strong> in Silvermoon City — a golden portal beside Lindormi and Agmera. Through it you reach the portal room with entrances to all 8 Season 1 dungeons.</p>
+      </div>
+      <div class="mplus-info-box">
+        <h4>Gear Upgrading</h4>
+        <p>Upgrade vendor <strong>Cuzolth</strong> is at <strong>48.3, 61.7</strong> in Silvermoon City alongside Vaskarn, the Crest Exchange NPC. Crests from M+ can be traded up to upgrade gear.</p>
+      </div>
+      <div class="mplus-info-box">
+        <h4>Great Vault</h4>
+        <p>Complete <strong>1 / 4 / 8</strong> Mythic+ keys per week to unlock 1, 2, or 3 Great Vault choices in the Dungeon column. Vault item level is always one tier higher than end-of-run loot.</p>
+      </div>
+      <div class="mplus-info-box">
+        <h4>Season Rewards</h4>
+        <ul>
+          <li><strong>2,000 Rating</strong> — KSM + Calamitous Carrion mount</li>
+          <li><strong>2,500 Rating</strong> — Light of the Party + Gleaming Sunmote (tier bonus visual)</li>
+          <li><strong>3,000 Rating</strong> — KSL + Convalescent Carrion mount</li>
+          <li><strong>Top 0.1%</strong> — Umbral Hero title</li>
+          <li><strong>+10 timed in each</strong> — Dungeon teleport</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ilvl Table -->
+    <div class="section-label" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#22d3ee;margin-bottom:10px;">Item Level Rewards</div>
+    <table class="mplus-ilvl-table">
+      <thead>
+        <tr>
+          <th>Difficulty</th>
+          <th>End-of-Run</th>
+          <th>Great Vault</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Mythic 0</td><td>Champion 1 (246)</td><td>Champion 4 (256)</td></tr>
+        <tr><td>Mythic +2</td><td>Champion 2 (250)</td><td class="ilvl-hero">Hero 1 (259)</td></tr>
+        <tr><td>Mythic +3</td><td>Champion 2 (250)</td><td class="ilvl-hero">Hero 1 (259)</td></tr>
+        <tr><td>Mythic +4</td><td>Champion 3 (253)</td><td class="ilvl-hero">Hero 2 (263)</td></tr>
+        <tr><td>Mythic +5</td><td>Champion 4 (256)</td><td class="ilvl-hero">Hero 2 (263)</td></tr>
+        <tr><td>Mythic +6</td><td class="ilvl-hero">Hero 1 (259)</td><td class="ilvl-hero">Hero 3 (266)</td></tr>
+        <tr><td>Mythic +7</td><td class="ilvl-hero">Hero 1 (259)</td><td class="ilvl-hero">Hero 4 (269)</td></tr>
+        <tr><td>Mythic +8</td><td class="ilvl-hero">Hero 2 (263)</td><td class="ilvl-hero">Hero 4 (269)</td></tr>
+        <tr><td>Mythic +9</td><td class="ilvl-hero">Hero 2 (263)</td><td class="ilvl-hero">Hero 4 (269)</td></tr>
+        <tr><td>Mythic +10+</td><td class="ilvl-hero">Hero 3 (266)</td><td class="ilvl-myth">Myth 1 (272)</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Dungeon Cards -->
+    <div class="section-label" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#22d3ee;margin-bottom:14px;">Dungeon Rotation</div>
+    <div class="dungeon-grid">
+
+      <!-- 1. Magisters' Terrace -->
+      <article class="dungeon-card" data-di="0">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/magisters_terrace.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Magisters' Terrace</div>
+            <div class="dungeon-type">4 Bosses · Arcane Hazards · Energy Soak</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Dungeon Bonus</div>
+          <div class="dungeon-tip">Early in the run, interact with an <strong>Arcane Tome</strong> in the library — grants <strong>Arcane Empowerment</strong> (+5% Haste for 30 min, persists through death).</div>
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/arcanotron_custos.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Arcanotron</div>
+            <div class="dungeon-tip">Soak <strong>Energy Orbs</strong> during Refueling Protocol to stop the boss consuming them — each orb left grants it a group-wide AoE blast. Soaking stacks <strong>Unstable Energy</strong>, so spread the soaks. Boss takes <strong>20% increased damage</strong> during this phase — burn hard. <span class="role-t">TANK:</span> Use defensives on Repulsing Slam. <span class="role-h">HEAL:</span> Dispel Ethereal Shackles immediately.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/seranel_sunlash.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Seranel Sunlash</div>
+            <div class="dungeon-tip">Stand inside the <strong>Suppression Zone</strong> when you have Runic Mark — entering it triggers Feedback and clears the debuff while blocking Wave of Silence silence. Null Reaction stacks make dodging harder so don't linger. <span class="role-t">TANK:</span> If party can't dispel Hastening Ward, pop major defensives.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/gemellus.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Gemellus</div>
+            <div class="dungeon-tip">Copies share health — hit all of them. At 50% HP a second Triplicate occurs. If you have <strong>Neural Link</strong>, hug the matching copy to remove its shield. During Astral Grasp use any movement speed to escape the Cosmic Radiation aura around the boss.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/degentrius.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Degentrius (Final)</div>
+            <div class="dungeon-tip">Spread players in the <strong>pizza-slice positions</strong> around the boss — you must bounce the Unstable Void ball between your positions. Missing it gives a stacking Void Destruction debuff (2+ stacks = wipe). Never touch the Void Torrent beam boundaries. <span class="role-t">TANK:</span> Manage Umbral Splinters drops carefully — the Stygian Ichor is painful for DPS to walk through.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2. Maisara Caverns -->
+      <article class="dungeon-card" data-di="1">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/maisara_caverns.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Maisara Caverns</div>
+            <div class="dungeon-type">3 Bosses · Dual Kill Sync · Necromancer Theme</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/murojinandnekraxx.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Muro'jin &amp; Nekraxx</div>
+            <div class="dungeon-tip">Kill both within seconds of each other — surviving one triggers <strong>Bestial Wrath / Revive Pet</strong>. Use defensives when you have <strong>Infected Pinions</strong>, especially if Barrage is targeting you simultaneously. Enter Nekraxx's Freezing Trap if Carrion Swoop marks you. <span class="role-t">TANK:</span> Stack both bosses for cleave. Use active mitigation on Flanking Spear.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/vordaza.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Vordaza</div>
+            <div class="dungeon-tip">When Unstable Phantoms spawn with Final Pursuit, force them to <strong>collide with each other</strong> rather than attacking them directly (99% damage reduction). Each collision = Lingering Dread stack + ground pool, so keep stacks below 2. Save offensive cooldowns for <strong>Necrotic Convergence</strong> phase — the shield ramps damage the longer it holds. <span class="role-t">TANK:</span> Major defensive on each Drain Soul.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/raktulvesselofsouls.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Rak'tul, Vessel of Souls (Final)</div>
+            <div class="dungeon-tip">During Crush Souls, the boss targets 3 players — stack close to improve Soulbind Totem cleave. Sidestep Volatile Essence puddles. During Soulrending Roar, CC Malignant Souls to gain Spectral Residue stacking buff (makes the boss die faster). <span class="role-t">TANK:</span> Position boss near Soulbind Totem for cleave. Use defensives on Spiritbreaker.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 3. Nexus-Point Xenas -->
+      <article class="dungeon-card" data-di="2">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/xenas.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Nexus-Point Xenas</div>
+            <div class="dungeon-type">3 Bosses · Leyline Mechanics · Void/Light Duality</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/chiefcorewrightkasreth.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Chief Corewright Kasreth</div>
+            <div class="dungeon-tip">Never cross an active <strong>Leyline Array</strong> — lethal without defensives. When you have Reflux Charge, destroy as many arrays as possible. Outrange Corespark Detonation, then avoid the Arcane Spill afterburn. Interrupt Arcane Zap whenever possible. <span class="role-h">HEAL:</span> Plan cooldowns after each Corespark Detonation — the Sparkburn DoT follows immediately.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/corewardennysarra.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Corewarden Nysarra</div>
+            <div class="dungeon-tip">Focus the <strong>Dreadflail and Grand Nullifier</strong> when Null Vanguard activates — must be dead before Lightscar Flare. During Lightscar Flare the boss takes <strong>300% increased damage</strong>, so save all major DPS cooldowns. <span class="role-t">TANK:</span> Major defensives on Umbral Lash — the Void Gash follow-up hits hard.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/lothraxion.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Lothraxion (Final)</div>
+            <div class="dungeon-tip">During <strong>Divine Guile</strong>, identify the real Lothraxion by his <strong>horns</strong> — interrupt the shade. Wrong interrupt triggers Core Exposure (massive raid damage). Use defensives if targeted by Brilliant Dispersion — the follow-up DoT is brutal and creates Fractured Images that knock back on contact.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 4. Windrunner Spire -->
+      <article class="dungeon-card" data-di="3">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/windrunner_spire.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Windrunner Spire</div>
+            <div class="dungeon-type">4 Bosses · Wind Mechanics · Dual Kill Sync</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/emberdawn.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Emberdawn</div>
+            <div class="dungeon-tip">Place <strong>Flaming Updraft</strong> near a corner to give your team space to dodge Flaming Twisters. During Burning Gale channel, watch for Fire Breath frontals. <span class="role-t">TANK:</span> Keep boss in a corner. Use major defensives on Searing Beak. <span class="role-h">HEAL:</span> Major cooldowns during Burning Gale channel.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/derelict-duo.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Derelict Duo (Kalis &amp; Latch)</div>
+            <div class="dungeon-tip">Kill both simultaneously — surviving one triggers <strong>Broken Bond</strong> enrage. The only way to stop Kalis's Debilitating Shriek is to use <strong>Latch's Heaving Yank</strong> to hook Kalis back. During Curse of Darkness, outrange the Dark Entity if you can't dispel it. Place Gunk Splatter puddles safely. <span class="role-t">TANK:</span> Active mitigation on each Bone Hack.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/commander-kroluk.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Commander Kroluk</div>
+            <div class="dungeon-tip">Stack together during <strong>Intimidating Shout</strong> to avoid fear. At 66% and 33% HP, boss casts Rallying Bellow (adds spawn + boss goes immune) — kill adds ASAP. DPS the boss only once adds are dead. Bait Reckless Leap as the furthest player and use defensives. <span class="role-t">TANK:</span> Major defensives on Rampage.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/the-restless-heart.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">The Restless Heart (Final)</div>
+            <div class="dungeon-tip">Clear <strong>Squall Leap</strong> debuff by walking into Turbulent Arrows (which knocks you airborne). Use the same Turbulent Arrows to avoid Billowing Wind wave by being mid-air when it passes. Use defensives during Bolt Gale. <span class="role-t">TANK:</span> Active mitigation on each Tempest Slash.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 5. Algeth'ar Academy -->
+      <article class="dungeon-card" data-di="4">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/algethar_academy.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Algeth'ar Academy</div>
+            <div class="dungeon-type">4 Bosses · Choose Your Path · Dragonflight Return</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Dungeon Bonus</div>
+          <div class="dungeon-tip">5 Dragonflight Recruiters in The Quad area — pick one buff (Haste, Mastery, 10% healing received, Versatility, or Crit). You can only choose once per run.</div>
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/overgrown-ancient.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Overgrown Ancient</div>
+            <div class="dungeon-tip">Stack and move together during Germinate to cleave Hungry Lashers. Sidestep Branch Out. Interrupt Ancient Branch's Healing Touch at all costs — when it dies, time it so the Abundance heal doesn't fully restore nearby Hungry Lashers. <span class="role-t">TANK:</span> Active mitigation on Barkbreaker. Taunt Ancient Branch immediately on spawn.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/crawth.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Crawth</div>
+            <div class="dungeon-tip">Throw orbs into <strong>Goal of the Searing Blaze</strong> first for a 75% damage buff window — use all major DPS cooldowns here. The second goal (Rushing Winds) adds roving cyclones. Dodge Overpowering Gust frontals at all times. <span class="role-t">TANK:</span> Active mitigation on Savage Peck.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/vexamus.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Vexamus</div>
+            <div class="dungeon-tip">Soak <strong>Arcane Orbs</strong> before they reach the boss (each one gives it 20 Energy, accelerating Arcane Fissure). Don't stack too many Oversurge stacks. Sidestep Arcane Expulsion frontal. Use defensives when boss casts Arcane Fissure. <span class="role-t">TANK:</span> Help soak orbs during high activity windows.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/echo-of-doragosa.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Echo of Doragosa (Final)</div>
+            <div class="dungeon-tip">Manage <strong>Overwhelming Power</strong> stacks carefully — at 3 stacks you auto-trigger an Arcane Rift. More rifts = harder fight. Never get greedy for stacks before Astral Breath. Use defensives on Energy Bomb. Run away from Power Vacuum. <span class="role-t">TANK:</span> Tank in a corner to preserve space. Active mitigation on Astral Blast.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6. Seat of the Triumvirate -->
+      <article class="dungeon-card" data-di="5">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/triumvirate.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Seat of the Triumvirate</div>
+            <div class="dungeon-type">4 Bosses · Void Mechanics · Add Management</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/zuraaltheascended.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Zuraal the Ascended</div>
+            <div class="dungeon-tip">During Oozing Slam, focus the <strong>Coalesced Void</strong> — CC if possible to stop it reaching the boss. Use defensives during Crashing Void (expect a knockback at the end, check behind you for Void Sludge). Place Decimate away from the middle for space management. <span class="role-t">TANK:</span> Major defensives on Void Slash.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/saprish.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Saprish</div>
+            <div class="dungeon-tip">Eliminate all <strong>Void Bombs</strong> with Overload before Saprish casts Umbral Nova — any remaining bombs when Nova fires = potential wipe. Interrupt Shadewing's Dread Screech. <span class="role-t">TANK:</span> Stack bosses for cleave. Active mitigation on Rending Void. <span class="role-h">HEAL:</span> Spot-heal Shadow Pounce bleed on Darkfang target.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/viceroynezhar.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Viceroy Nezhar</div>
+            <div class="dungeon-tip">Kill all <strong>Umbral Tentacles</strong> before Collapsing Void fires — the knockback makes surviving tentacles extremely dangerous. Interrupt Mind Blast. Dodge Umbral Waves during Gates of the Abyss. <span class="role-t">TANK:</span> Position boss near tentacles for cleave.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/lura.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">L'ura (Final)</div>
+            <div class="dungeon-tip">The fight rotates around using <strong>Discordant Beam</strong> to break Notes of Despair — clearing all notes triggers Siphon Void (boss takes increased damage). Use this window for DPS cooldowns. Dodge Disintegrate beam. <span class="role-h">HEAL:</span> Major cooldowns before Anguish stacks — HPS requirement ramps significantly each cycle. Top the beam-soaker before they stand in Discordant Beam.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 7. Skyreach -->
+      <article class="dungeon-card" data-di="6">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/skyreach.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Skyreach</div>
+            <div class="dungeon-type">4 Bosses · Wind/Fire · Platform Awareness</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/ranjit.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Ranjit</div>
+            <div class="dungeon-tip"><strong>Wind Chakram kills</strong> — never let it hit you. During Chakram Vortex, dodge the Gale Surge waves simultaneously. Position carefully before each Gale Surge — knockback + Coalesced Wind orb spawn. Use defensives on Fan of Blades bleed. <span class="role-t">TANK:</span> Move boss away from returning Chakram so melee don't die.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/araknath.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Araknath</div>
+            <div class="dungeon-tip">Soak the <strong>solar beams</strong> to prevent Araknath from gaining Solar Infusion stacks — too many stacks leads to a lethal Supernova. Dodge Defensive Protocol heat waves. Use defensives when soaking (damage is real). Stay in melee range to suppress Blast Wave. <span class="role-t">TANK:</span> Keep Fiery Smash frontal away from team.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/rukhran.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Rukhran</div>
+            <div class="dungeon-tip">Stack near the boss during Sunbreak to spawn Sunwings in a cleaveable position. CC Sunwings when they fixate (Burning Pursuit). After a Sunwing dies, avoid its <strong>Smoldering Egg</strong> — another Sunwing standing on it will respawn it. LoS during Searing Quills. <span class="role-t">TANK:</span> Stay in melee to prevent Screech. Active mitigation on Burning Claws.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/high-sage-viryx.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">High Sage Viryx (Final)</div>
+            <div class="dungeon-tip">Use defensives on <strong>Scorching Ray</strong>. If targeted by Lens Flare, place Blazing Ground puddles in edges/corners for space management. When Cast Down appears, prioritize the add — it has a lot of HP. Interrupt Solar Blast at all times. <span class="role-t">TANK:</span> Position boss near the Cast Down add for cleave.</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- 8. Pit of Saron -->
+      <article class="dungeon-card" data-di="7">
+        <div class="dungeon-header" onclick="toggleDungeon(this.closest('.dungeon-card'))">
+          <div class="dungeon-num"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/pit_of_saron.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:3px;"></div>
+          <div>
+            <div class="dungeon-name">Pit of Saron</div>
+            <div class="dungeon-type">3 Bosses · Scourge · Frost &amp; Bone Mechanics</div>
+          </div>
+          <span class="dungeon-chevron">▾</span>
+        </div>
+        <div class="dungeon-body">
+          <div class="dungeon-section-label">Boss Tips</div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/forgemaster-garfrost.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Forgemaster Garfrost</div>
+            <div class="dungeon-tip">When targeted by Throw Saronite, place <strong>Ore Chunks close together</strong> so the tank can break them all with one Orebreaker charge. During Glacial Overload, stand behind an Ore Chunk to block stacks — more than 3 stacks is lethal. The persistent <strong>Siphoning Chill</strong> aura is constant chip damage throughout the fight. <span class="role-h">HEAL:</span> Dispel 1 target from Cryoshards, then use cooldowns on Cryostomp.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/ickandkrick.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Ick &amp; Krick</div>
+            <div class="dungeon-tip">Both bosses share health via Necrolink — always cleave both. Interrupt Krick's Death Bolt. During Shade Shift, focus <strong>Shades of Krick</strong> and interrupt their Shadowbind (it's a Curse — decurse works). If you get Lumbering Fixation stay far from the boss. <span class="role-t">TANK:</span> Stack both bosses at all times. Major defensives on Blight Smash.</div>
+          </div>
+          <div class="dungeon-boss">
+            <div class="dungeon-boss-name" style="display:flex;align-items:center;gap:8px;"><img src="https://raw.githubusercontent.com/Owchy/WoW-Boss-Guides/main/images/scourgelordtyrannus.png" alt="" style="width:32px;height:32px;object-fit:cover;border-radius:3px;border:1px solid rgba(34,211,238,0.2);flex-shrink:0;">Scourgelord Tyrannus (Final)</div>
+            <div class="dungeon-tip">Place <strong>Rime Blast</strong> debuff on top of Bone Piles / Infused Bone Piles — this dramatically reduces the add count during Army of the Dead. During Army of the Dead, interrupt Scourge Plaguespreader at all costs. Avoid Death's Grasp puddles and Ice Barrage. <span class="role-t">TANK:</span> Major defensives on Scourgelord's Brand. Avoid Scourgelord's Reckoning.</div>
+          </div>
+        </div>
+      </article>
+
+    </div><!-- /dungeon-grid -->
+
+  </div><!-- /raid-mplus -->
+
   <footer class="site-footer">
     <p>WoW Midnight Season 1 · <a href="https://www.wowhead.com/guide/midnight/raids/the-voidspire-overview-location-rewards-bosses" target="_blank" rel="noopener">Voidspire on Wowhead</a> · <a href="https://www.wowhead.com/guide/midnight/raids/the-dreamrift-overview-location-rewards-boss" target="_blank" rel="noopener">Dreamrift on Wowhead</a> · <a href="https://www.method.gg" target="_blank" rel="noopener">Method</a></p>
   </footer>
@@ -1621,6 +2205,12 @@
       title:   'The Dreamrift',
       subtitle:'A raid guide for the single corrupted encounter in the rift — Normal & Heroic',
       pills:   ['1 Boss', 'ilvl 250–263', 'Tier 35 Chest']
+    },
+    mplus: {
+      eyebrow: 'WoW Midnight · Season 1 · Mythic+',
+      title:   'Mythic+ Season 1',
+      subtitle:'Boss tips, ilvl rewards, and dungeon guides for all 8 Season 1 keystones',
+      pills:   ['8 Dungeons', 'M+ Unlocks Mar 24', 'ilvl 246–272']
     }
   };
 
@@ -1636,8 +2226,14 @@
     document.getElementById('hdr-title').textContent    = m.title;
     document.getElementById('hdr-subtitle').textContent = m.subtitle;
     document.getElementById('hdr-meta').innerHTML = m.pills.map(p => `<span class="meta-pill">${p}</span>`).join('');
+    // Show/hide difficulty toggle (not relevant for M+)
+    document.querySelector('.diff-bar').style.display = raid === 'mplus' ? 'none' : '';
     // Scroll to top smoothly
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Trigger reveal for dungeon cards if switching to M+
+    if (raid === 'mplus') {
+      document.querySelectorAll('.dungeon-card:not(.revealed)').forEach(card => dObserver.observe(card));
+    }
   }
 
   /* ─── Collapsible per-boss video ─── */
@@ -1717,6 +2313,10 @@
     body.classList.toggle('open', !isOpen);
   }
 
+  function toggleDungeon(card) {
+    card.classList.toggle('open');
+  }
+
   // Scroll-triggered card reveals
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -1730,6 +2330,18 @@
   }, { threshold: 0.08 });
 
   document.querySelectorAll('.boss-card:not(.revealed)').forEach(card => observer.observe(card));
+
+  // Dungeon card reveal observer
+  const dObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const card = entry.target;
+        const delay = parseInt(card.dataset.di || 0) * 60;
+        setTimeout(() => card.classList.add('revealed'), delay);
+        dObserver.unobserve(card);
+      }
+    });
+  }, { threshold: 0.05 });
 </script>
 
 <!-- Wowhead tooltips — loaded last so their CSS doesn't break our layout -->
@@ -1738,6 +2350,7 @@
   .page-wrap { max-width: 860px !important; margin: 0 auto !important; }
   .boss-card { width: 100% !important; }
   .boss-header { display: grid !important; grid-template-columns: 56px 1fr auto auto !important; }
+  .dungeon-card { width: 100% !important; }
   .boss-num img { display: block !important; max-width: 100% !important; }
   .loot-icon img { display: block !important; }
 
