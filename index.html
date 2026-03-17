@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Voidspire — Raid Boss Guide</title>
+<title>WoW Midnight Season 1 — Raid Boss Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -749,6 +749,82 @@
 
   .tier-note strong { color: #c9b0ff; font-weight: 600; }
 
+  /* ─── Raid Selector ─── */
+  .raid-selector {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 0 0 32px;
+  }
+
+  .raid-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    font-family: 'Cinzel', serif;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .raid-btn::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 50%; right: 50%;
+    height: 2px;
+    background: var(--raid-accent, var(--gold));
+    border-radius: 2px 2px 0 0;
+    transition: left 0.2s, right 0.2s;
+  }
+
+  .raid-btn:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .raid-btn.active {
+    border-color: var(--raid-accent, var(--gold));
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.07);
+  }
+
+  .raid-btn.active::after { left: 0; right: 0; }
+
+  .raid-btn-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 4px;
+    object-fit: cover;
+    object-position: center top;
+    border: 1px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+  }
+
+  .raid-btn-text { text-align: left; }
+  .raid-btn-name { display: block; font-size: 13px; margin-bottom: 2px; }
+  .raid-btn-sub { display: block; font-size: 10px; color: var(--text-muted); font-family: 'Crimson Pro', serif; letter-spacing: 0.04em; }
+
+  .raid-voidspire { --raid-accent: var(--purple); }
+  .raid-dreamrift { --raid-accent: #4fc3a8; }
+
+  /* ─── Dynamic Header ─── */
+  .header-dynamic { transition: opacity 0.25s; }
+
+  /* ─── Raid sections ─── */
+  .raid-section { display: none; }
+  .raid-section.active { display: block; }
+
+  /* ─── Dreamrift specific boss color ─── */
+  .bd1 { --boss-color: #4fc3a8; --boss-dim: rgba(79,195,168,0.12); }
+
   /* ─── Mobile ─── */
   @media (max-width: 600px) {
     .boss-header { grid-template-columns: 48px 1fr auto; }
@@ -767,10 +843,10 @@
 
   <!-- ─── Header ─── -->
   <header class="site-header">
-    <p class="eyebrow">WoW Midnight · Season 1 · Voidstorm, Quel'Thalas</p>
-    <h1>The Voidspire</h1>
-    <p class="subtitle">A raid guide for the ascent through six corrupted encounters — Normal &amp; Heroic</p>
-    <div class="header-meta">
+    <p class="eyebrow header-dynamic" id="hdr-eyebrow">WoW Midnight · Season 1 · Voidstorm, Quel'Thalas</p>
+    <h1 class="header-dynamic" id="hdr-title">The Voidspire</h1>
+    <p class="subtitle header-dynamic" id="hdr-subtitle">A raid guide for the ascent through six corrupted encounters — Normal &amp; Heroic</p>
+    <div class="header-meta header-dynamic" id="hdr-meta">
       <span class="meta-pill">6 Bosses</span>
       <span class="meta-pill">Opens March 17, 2026</span>
       <span class="meta-pill">ilvl 246–269</span>
@@ -780,11 +856,34 @@
 
   <div class="divider-ornament"><div class="gem"></div></div>
 
+  <!-- ─── Raid Selector ─── -->
+  <div class="raid-selector">
+    <button class="raid-btn raid-voidspire active" onclick="setRaid('voidspire')">
+      <img class="raid-btn-icon" src="images/imperator_averzian.png" alt="">
+      <span class="raid-btn-text">
+        <span class="raid-btn-name">The Voidspire</span>
+        <span class="raid-btn-sub">Voidstorm, Quel'Thalas · 6 Bosses</span>
+      </span>
+    </button>
+    <button class="raid-btn raid-dreamrift" onclick="setRaid('dreamrift')">
+      <img class="raid-btn-icon" src="images/chimaerus.png" alt="">
+      <span class="raid-btn-text">
+        <span class="raid-btn-name">The Dreamrift</span>
+        <span class="raid-btn-sub">Harandar · 1 Boss</span>
+      </span>
+    </button>
+  </div>
+
   <!-- ─── Difficulty Toggle ─── -->
   <div class="diff-bar">
     <button class="diff-btn active-n" id="btn-n" onclick="setDiff('n')">Normal</button>
     <button class="diff-btn" id="btn-h" onclick="setDiff('h')">Heroic</button>
   </div>
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- RAID: THE VOIDSPIRE -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="raid-section active" id="raid-voidspire">
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 1 -->
@@ -1372,14 +1471,134 @@
   </article>
 
   <!-- ─── Footer ─── -->
+  </div><!-- /raid-voidspire -->
+
+  <!-- ════════════════════════════════════════════════════ -->
+  <!-- RAID: THE DREAMRIFT -->
+  <!-- ════════════════════════════════════════════════════ -->
+  <div class="raid-section" id="raid-dreamrift">
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- BOSS 1 — CHIMAERUS -->
+  <!-- ═══════════════════════════════════════════ -->
+  <article class="boss-card bd1 open revealed" data-index="0">
+    <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
+      <div class="boss-num"><img src="images/chimaerus.png" alt="Chimaerus"></div>
+      <div>
+        <div class="boss-name">Chimaerus the Undreamt God</div>
+        <div class="boss-type">Dual Realm · Add Control · Multi-Phase · Burn Windows</div>
+      </div>
+      <span class="diff-badge badge-n diff-label-dr">Normal — High</span>
+      <span class="chevron">▾</span>
+    </div>
+    <div class="boss-body open">
+      <!-- NORMAL -->
+      <div class="diff-section visible" data-diff="n">
+        <div class="tldr tldr-n">Chimaerus exists in two realms simultaneously. Manifestations spawn in the Aln (spirit realm) invisible to normal players — only those hit by <strong>Alndust Upheaval</strong> can see and kill them. Kill Manifestations before they breach into Reality and reach Chimaerus, or he eats them and gains stacking damage buffs. At 100 energy he flies and drops <strong>Corrupted Devastation</strong> beams; land his <strong>Ravenous Dive</strong> return with zero surviving Manifestations.</div>
+        <div class="section-label">Key Mechanics</div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Alndust Upheaval</strong> — Tank-targeted slam that knocks nearby players up and grants them <em>Alnsight</em> for 40 sec. Alnsight-players can see and damage Manifestations in the Aln. Stack near the tank to guarantee coverage each cast.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Rift Emergence / Coalesced Manifestations</strong> — Three types emerge: Colossal Horror (tank, spams Discordant Roar — escalating raid damage, kick on cooldown), Haunting Essence (healer, casts Fearsome Cry fear — stun or dispel), Swarming Shade (DPS target, no CC). Prioritise: Haunting Essence → Colossal Horror → Swarming Shade.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Alnshroud</strong> — Each Manifestation has a damage shield. Only Alnsight players can strip it. Once removed the Manifestation bursts into Reality and walks toward Chimaerus — kill it immediately.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Insatiable / Cannibalized Essence</strong> — Any Manifestation that reaches Chimaerus in Reality grants him +10% damage and heals him for 500% of the add's remaining HP. Even one stack is punishing; zero adds reaching him is the core execution requirement.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Caustic Phlegm</strong> — Periodic raid-wide DoT on all players. Healers should save throughput cooldowns for this window, especially when Rift Sickness absorb stacks are high.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Rending Tear</strong> — Frontal cone on current tank target. Face Chimaerus away from raid at all times. Tank swap after each cast to manage the bleed stack.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Stage Two: Corrupted Devastation</strong> — At 100 energy Chimaerus takes to the skies. He sweeps beams across the platform — move through each beam path after it fires to avoid doubling back into the next sweep. Surviving Manifestations break into Reality during this phase. Kill them before <strong>Ravenous Dive</strong> lands.</div></div>
+        <div class="mech"><div class="mdot"></div><div class="mtext"><strong>Ravenous Dive</strong> — Chimaerus slams back down, consuming all remaining Manifestations still alive. Zero adds = zero stacks. This is the burn check: every Manifestation alive when he lands is a permanent damage buff on the boss for the rest of the fight.</div></div>
+        <div class="section-label">Wipe Conditions</div>
+        <div class="wipe-box">Chimaerus reaches 8–10 stacks of <strong>Cannibalized Essence</strong> — incoming damage becomes unmitigable.</div>
+        <div class="wipe-box">Healer collapse from compounding <strong>Rift Sickness</strong> absorbs + <strong>Caustic Phlegm</strong> with no cooldowns available.</div>
+        <div class="wipe-box">Multiple uninterrupted <strong>Discordant Roar</strong> casts — each one ramps raid damage by 10%; 4–5 uninterrupted casts is usually fatal.</div>
+      </div>
+      <!-- HEROIC -->
+      <div class="diff-section" data-diff="h">
+        <div class="tldr tldr-h">Same dual-realm structure but significantly tighter. <strong>Consuming Miasma</strong> is added — targeted players build a ticking AoE that erupts on removal, consuming nearby Alndust Essence puddles and knocking everyone back. Dispel timing is critical. <strong>Rift Shroud</strong> makes Chimaerus immune during Stage Two unless broken. Ravenous Dive no longer clears Alndust Essence puddles, so Stage Two positioning becomes increasingly dangerous over multiple cycles.</div>
+        <div class="section-label">Heroic Additions</div>
+        <div class="mech heroic-add"><div class="mdot" style="background:var(--amber)"></div><div class="mtext"><strong>Consuming Miasma</strong> — Targeted players suffer escalating Nature damage for 1 min. On dispel (or natural expiry), erupts with <em>Lingering Miasma</em>: 10-yard knockback + DoT on nearby players, and consumes Alndust Essence puddles in the area. Dispel away from other players and away from Stage Two puddle clusters.</div></div>
+        <div class="mech heroic-add"><div class="mdot" style="background:var(--amber)"></div><div class="mtext"><strong>Rift Shroud</strong> — During Stage Two, Chimaerus gains a 99% damage reduction shield. DPS must burn Manifestations with Alnsight to strip the shroud before dealing meaningful boss damage. Coordinate Alnsight coverage across the squad — you need minimum 5–6 players with the buff active simultaneously to strip it quickly.</div></div>
+        <div class="mech heroic-add"><div class="mdot" style="background:var(--amber)"></div><div class="mtext"><strong>Ravenous Dive no longer clears puddles</strong> — Alndust Essence zones from Heroic Corrupted Devastation persist through the dive. The arena floor fills progressively each cycle; route your movement early and keep melee aware of safe zones.</div></div>
+        <div class="mech heroic-add"><div class="mdot" style="background:var(--amber)"></div><div class="mtext"><strong>Alnshroud Burst</strong> — On Heroic, removing Alnshroud leaves an Alndust Essence puddle at the Manifestation's position. Kill adds away from the centre and away from designated movement corridors.</div></div>
+        <div class="section-label">Wipe Conditions</div>
+        <div class="wipe-box">Failing to strip <strong>Rift Shroud</strong> during Stage Two — boss becomes unkillable while healers are overwhelmed by Manifestation pressure.</div>
+        <div class="wipe-box"><strong>Consuming Miasma</strong> dispelled into the raid or into puddle clusters — chain knockbacks make the platform unplayable.</div>
+        <div class="wipe-box">Puddle accumulation blocking melee and ranged positions by cycle 3+ — healers cannot reach players, tanks cannot kite Manifestations safely.</div>
+      </div>
+
+      <!-- Loot -->
+      <div class="section-label">Loot Table</div>
+      <div class="loot-ilvl-note" style="font-size:13px;color:var(--text-muted);margin:-8px 0 12px;font-style:italic;">Normal ilvl 250 · Heroic ilvl 263</div>
+      <div class="loot-grid">
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249347/alnwoven-riftbloom" data-wowhead="item=249347" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_rutaani_currency_blue.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪙</div>'"></div>
+          <div><div class="loot-name">Alnwoven Riftbloom</div><div class="loot-slot">Chest Token · Cloth</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249348/alncured-riftbloom" data-wowhead="item=249348" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_rutaani_currency_yellow.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪙</div>'"></div>
+          <div><div class="loot-name">Alncured Riftbloom</div><div class="loot-slot">Chest Token · Leather</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249349/alncast-riftbloom" data-wowhead="item=249349" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_rutaani_currency_purple.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪙</div>'"></div>
+          <div><div class="loot-name">Alncast Riftbloom</div><div class="loot-slot">Chest Token · Mail</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249350/alnforged-riftbloom" data-wowhead="item=249350" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_rutaani_currency_pink.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪙</div>'"></div>
+          <div><div class="loot-name">Alnforged Riftbloom</div><div class="loot-slot">Chest Token · Plate</div></div>
+        </a>
+      </div>
+      <div class="loot-tier-note">★ Tier token: Chest slot — drops from Chimaerus only. Classes: Cloth (Mage/Priest/Warlock) · Leather (DH/Druid/Monk/Rogue) · Mail (Evoker/Hunter/Shaman) · Plate (DK/Paladin/Warrior)</div>
+
+      <!-- Video -->
+      <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        ▶ Watch Chimaerus Guide Video <span class="vid-chevron">▾</span>
+      </button>
+      <div class="video-embed-wrap">
+        <div class="video-unavailable">🎬 No video guide available yet — check back after release week.</div>
+      </div>
+    </div>
+  </article>
+
+  </div><!-- /raid-dreamrift -->
+
   <footer class="site-footer">
-    <p>The Voidspire · WoW Midnight Season 1 · <a href="https://www.wowhead.com/guide/midnight/raids/the-voidspire-overview-location-rewards-bosses" target="_blank" rel="noopener">Wowhead</a> · <a href="https://www.method.gg" target="_blank" rel="noopener">Method</a></p>
+    <p>WoW Midnight Season 1 · <a href="https://www.wowhead.com/guide/midnight/raids/the-voidspire-overview-location-rewards-bosses" target="_blank" rel="noopener">Voidspire on Wowhead</a> · <a href="https://www.wowhead.com/guide/midnight/raids/the-dreamrift-overview-location-rewards-boss" target="_blank" rel="noopener">Dreamrift on Wowhead</a> · <a href="https://www.method.gg" target="_blank" rel="noopener">Method</a></p>
   </footer>
 
 </div><!-- /page-wrap -->
 
 <script>
   let currentDiff = 'n';
+  let currentRaid = 'voidspire';
+
+  /* ─── Raid Switcher ─── */
+  const RAID_META = {
+    voidspire: {
+      eyebrow: 'WoW Midnight · Season 1 · Voidstorm, Quel'Thalas',
+      title:   'The Voidspire',
+      subtitle:'A raid guide for the ascent through six corrupted encounters — Normal & Heroic',
+      pills:   ['6 Bosses', 'Opens March 17, 2026', 'ilvl 246–269', 'Tier 35']
+    },
+    dreamrift: {
+      eyebrow: 'WoW Midnight · Season 1 · Harandar',
+      title:   'The Dreamrift',
+      subtitle:'A raid guide for the single corrupted encounter in the rift — Normal & Heroic',
+      pills:   ['1 Boss', 'Opens March 17, 2026', 'ilvl 250–263', 'Tier 35 Chest']
+    }
+  };
+
+  function setRaid(raid) {
+    currentRaid = raid;
+    // Toggle sections
+    document.querySelectorAll('.raid-section').forEach(s => s.classList.toggle('active', s.id === 'raid-' + raid));
+    // Toggle raid buttons
+    document.querySelectorAll('.raid-btn').forEach(b => b.classList.toggle('active', b.classList.contains('raid-' + raid)));
+    // Update header
+    const m = RAID_META[raid];
+    document.getElementById('hdr-eyebrow').textContent  = m.eyebrow;
+    document.getElementById('hdr-title').textContent    = m.title;
+    document.getElementById('hdr-subtitle').textContent = m.subtitle;
+    document.getElementById('hdr-meta').innerHTML = m.pills.map(p => `<span class="meta-pill">${p}</span>`).join('');
+    // Scroll to top smoothly
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   /* ─── Collapsible per-boss video ─── */
   function toggleVideo(btn) {
@@ -1413,6 +1632,10 @@
     b6: { n: 'Normal — Very High',h: 'Heroic — Extreme' },
   };
 
+  const DR_LABELS = {
+    bd1: { n: 'Normal — High', h: 'Heroic — Very High' }
+  };
+
   function setDiff(d) {
     currentDiff = d;
     document.getElementById('btn-n').className = 'diff-btn' + (d === 'n' ? ' active-n' : '');
@@ -1422,12 +1645,25 @@
       s.classList.toggle('visible', s.dataset.diff === d);
     });
 
+    // Voidspire labels
     document.querySelectorAll('.diff-label').forEach(badge => {
       const card = badge.closest('.boss-card');
       for (const cls of card.classList) {
         if (LABELS[cls]) {
           badge.textContent = LABELS[cls][d];
           badge.className = 'diff-badge diff-label ' + (d === 'n' ? 'badge-n' : d === 'h' && cls === 'b6' ? 'badge-e' : 'badge-h');
+          break;
+        }
+      }
+    });
+
+    // Dreamrift labels
+    document.querySelectorAll('.diff-label-dr').forEach(badge => {
+      const card = badge.closest('.boss-card');
+      for (const cls of card.classList) {
+        if (DR_LABELS[cls]) {
+          badge.textContent = DR_LABELS[cls][d];
+          badge.className = 'diff-badge diff-label-dr ' + (d === 'n' ? 'badge-n' : 'badge-h');
           break;
         }
       }
@@ -1464,6 +1700,10 @@
   .boss-header { display: grid !important; grid-template-columns: 56px 1fr auto auto !important; }
   .boss-num img { display: block !important; max-width: 100% !important; }
   .loot-icon img { display: block !important; }
+
+  /* Heroic addition mechanic rows (Dreamrift) */
+  .mech.heroic-add .mdot { background: var(--amber) !important; }
+  .mech.heroic-add { opacity: 0.95; }
 </style>
 <script>
   const whTooltips = {
