@@ -306,22 +306,29 @@
   .boss-header:hover { background: rgba(255,255,255,0.025); }
 
   .boss-num {
-    width: 40px; height: 40px;
-    border: 1px solid var(--boss-color);
-    border-radius: 2px;
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    color: var(--boss-color);
-    background: var(--boss-dim);
+    width: 48px; height: 48px;
+    border-radius: 4px;
+    overflow: hidden;
     flex-shrink: 0;
-    transition: background 0.2s;
+    border: 1px solid var(--boss-color);
+    background: var(--boss-dim);
+    position: relative;
+    transition: border-color 0.2s;
   }
 
-  .boss-card.open .boss-num {
-    background: var(--boss-color);
-    color: var(--void);
+  .boss-num img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: saturate(0.85);
+    transition: filter 0.2s, transform 0.2s;
   }
+
+  .boss-card.open .boss-num { border-color: var(--boss-color); }
+  .boss-card.open .boss-num img { filter: saturate(1.1); }
+  .boss-header:hover .boss-num img { transform: scale(1.06); filter: saturate(1.2); }
 
   .boss-name {
     font-family: 'Cinzel', serif;
@@ -738,9 +745,9 @@
 
   /* ─── Mobile ─── */
   @media (max-width: 600px) {
-    .boss-header { grid-template-columns: 44px 1fr auto; }
+    .boss-header { grid-template-columns: 48px 1fr auto; }
     .diff-badge { display: none; }
-    .boss-num { width: 34px; height: 34px; font-size: 13px; }
+    .boss-num { width: 40px; height: 40px; }
     .boss-name { font-size: 14px; }
     .boss-body { padding: 18px 16px 18px 18px; }
     .diff-btn { padding: 10px 20px; }
@@ -789,10 +796,11 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b1 open revealed" data-index="0">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">I</div>
+      <div class="boss-num"><img src="images/imperator_averzian.png" alt="Imperator Averzian"></div>
       <div>
         <div class="boss-name">Imperator Averzian</div>
         <div class="boss-type">Grid Control · Void Tic-Tac-Toe · Add Denial</div>
+      </div>
       </div>
       <span class="diff-badge badge-n diff-label">Normal — Medium</span>
       <span class="chevron">▾</span>
@@ -899,7 +907,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b2" data-index="1">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">II</div>
+      <div class="boss-num"><img src="images/vorasius.png" alt="Vorasius"></div>
       <div>
         <div class="boss-name">Vorasius</div>
         <div class="boss-type">Crystal Walls · Add Kiting · Healer Throughput Check</div>
@@ -989,7 +997,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b3" data-index="2">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">III</div>
+      <div class="boss-num"><img src="images/fallen_king.png" alt="Fallen-King Salhadaar"></div>
       <div>
         <div class="boss-name">Fallen-King Salhadaar</div>
         <div class="boss-type">Void Orbs · Staggered Kills · Interrupt Rotation · Burn Windows</div>
@@ -1089,7 +1097,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b4" data-index="3">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">IV</div>
+      <div class="boss-num"><img src="images/vaelgor_ezzorak.png" alt="Vaelgor & Ezzorak"></div>
       <div>
         <div class="boss-name">Vaelgor &amp; Ezzorak</div>
         <div class="boss-type">Dual Dragons · HP Parity · Gloom Soaks · First Major Wall</div>
@@ -1181,7 +1189,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b5" data-index="4">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">V</div>
+      <div class="boss-num"><img src="images/lightblinded_vanguard.png" alt="Lightblinded Vanguard"></div>
       <div>
         <div class="boss-name">Lightblinded Vanguard</div>
         <div class="boss-type">Triple Council · Rotating Auras · Assignment-Heavy · Paladin Toolkit</div>
@@ -1268,7 +1276,7 @@
   <!-- ═══════════════════════════════════════════ -->
   <article class="boss-card b6" data-index="5">
     <div class="boss-header" onclick="toggle(this.closest('.boss-card'))">
-      <div class="boss-num">VI</div>
+      <div class="boss-num"><img src="images/crown_of_the_cosmos.png" alt="Crown of the Cosmos"></div>
       <div>
         <div class="boss-name">Crown of the Cosmos</div>
         <div class="boss-type">Alleria Windrunner · Multi-Phase · AotC &amp; World First Boss</div>
