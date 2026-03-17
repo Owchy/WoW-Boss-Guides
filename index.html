@@ -1910,9 +1910,14 @@
       </div>
     </div>
 
-    <!-- ilvl Table -->
-    <div class="section-label" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#22d3ee;margin-bottom:10px;">Item Level Rewards</div>
-    <table class="mplus-ilvl-table">
+    <div style="margin-bottom:28px;">    <!-- ilvl Table -->
+    <div style="margin-bottom:28px;">
+    <div class="ilvl-toggle" onclick="toggleIlvl(this)" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid var(--void-border);border-radius:4px;transition:border-color 0.2s,border-radius 0.2s;">
+      <span style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#22d3ee;">Item Level Rewards</span>
+      <span class="ilvl-chevron" style="color:var(--text-muted);font-size:12px;transition:transform 0.2s;">▾</span>
+    </div>
+    <div class="ilvl-table-wrap" style="display:none;border:1px solid var(--void-border);border-top:none;border-radius:0 0 4px 4px;overflow:hidden;">
+    <table class="mplus-ilvl-table" style="margin-bottom:0;">
       <thead>
         <tr>
           <th>Difficulty</th>
@@ -1933,6 +1938,8 @@
         <tr><td>Mythic +10+</td><td class="ilvl-hero">Hero 3 (266)</td><td class="ilvl-myth">Myth 1 (272)</td></tr>
       </tbody>
     </table>
+    </div>
+    </div>
 
     <!-- Dungeon Cards -->
     <div class="section-label" style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#22d3ee;margin-bottom:14px;">Dungeon Rotation</div>
@@ -2315,6 +2322,16 @@
 
   function toggleDungeon(card) {
     card.classList.toggle('open');
+  }
+
+  function toggleIlvl(btn) {
+    const wrap = btn.nextElementSibling;
+    const chevron = btn.querySelector('.ilvl-chevron');
+    const isOpen = wrap.style.display !== 'none';
+    wrap.style.display = isOpen ? 'none' : 'block';
+    chevron.style.transform = isOpen ? '' : 'rotate(180deg)';
+    btn.style.borderRadius = isOpen ? '4px' : '4px 4px 0 0';
+    btn.style.borderBottom = isOpen ? '' : '1px solid rgba(34,211,238,0.2)';
   }
 
   // Scroll-triggered card reveals
