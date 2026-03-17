@@ -775,19 +775,38 @@
   .raid-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    padding: 14px 24px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.1);
+    padding: 0;
+    height: 80px;
+    flex: 1;
+    max-width: 380px;
+    background-size: cover;
+    background-position: center 35%;
+    border: 1px solid rgba(255,255,255,0.12);
     border-radius: 6px;
     color: var(--text-secondary);
     font-family: 'Cinzel', serif;
     font-size: 13px;
     letter-spacing: 0.06em;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s;
     position: relative;
+    overflow: hidden;
   }
+
+  /* Dark overlay so text is readable */
+  .raid-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(8,5,18,0.62);
+    transition: background 0.25s;
+    border-radius: 6px;
+  }
+
+  .raid-btn:hover::before { background: rgba(8,5,18,0.45); }
+  .raid-btn.active::before { background: rgba(8,5,18,0.42); }
 
   .raid-btn::after {
     content: '';
@@ -807,25 +826,17 @@
 
   .raid-btn.active {
     border-color: var(--raid-accent, var(--gold));
+    border-width: 2px;
     color: var(--text-primary);
-    background: rgba(255,255,255,0.07);
   }
 
   .raid-btn.active::after { left: 0; right: 0; }
 
-  .raid-btn-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 4px;
-    object-fit: cover;
-    object-position: center top;
-    border: 1px solid rgba(255,255,255,0.15);
-    flex-shrink: 0;
-  }
+  /* .raid-btn-icon removed — banner bg used instead */
 
-  .raid-btn-text { text-align: left; }
-  .raid-btn-name { display: block; font-size: 13px; margin-bottom: 2px; }
-  .raid-btn-sub { display: block; font-size: 10px; color: var(--text-muted); font-family: 'Crimson Pro', serif; letter-spacing: 0.04em; }
+  .raid-btn-text { text-align: center; position: relative; z-index: 1; }
+  .raid-btn-name { display: block; font-size: 14px; margin-bottom: 3px; color: var(--text-primary); text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+  .raid-btn-sub { display: block; font-size: 11px; color: rgba(220,210,255,0.7); font-family: 'Crimson Pro', serif; letter-spacing: 0.04em; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
   .raid-voidspire { --raid-accent: var(--purple); }
   .raid-dreamrift { --raid-accent: #4fc3a8; }
@@ -863,7 +874,6 @@
     <p class="subtitle header-dynamic" id="hdr-subtitle">A raid guide for the ascent through six corrupted encounters — Normal &amp; Heroic</p>
     <div class="header-meta header-dynamic" id="hdr-meta">
       <span class="meta-pill">6 Bosses</span>
-      <span class="meta-pill">Opens March 17, 2026</span>
       <span class="meta-pill">ilvl 246–269</span>
       <span class="meta-pill">Tier 35</span>
     </div>
@@ -873,15 +883,13 @@
 
   <!-- ─── Raid Selector ─── -->
   <div class="raid-selector">
-    <button class="raid-btn raid-voidspire active" onclick="setRaid('voidspire')">
-      <img class="raid-btn-icon" src="images/imperator_averzian.png" alt="">
+    <button class="raid-btn raid-voidspire active" onclick="setRaid('voidspire')" style="background-image:url('images/voidspire_banner.jpg')">
       <span class="raid-btn-text">
         <span class="raid-btn-name">The Voidspire</span>
         <span class="raid-btn-sub">Voidstorm, Quel'Thalas · 6 Bosses</span>
       </span>
     </button>
-    <button class="raid-btn raid-dreamrift" onclick="setRaid('dreamrift')">
-      <img class="raid-btn-icon" src="images/chimaerus.png" alt="">
+    <button class="raid-btn raid-dreamrift" onclick="setRaid('dreamrift')" style="background-image:url('images/dreamrift_banner.jpg')">
       <span class="raid-btn-text">
         <span class="raid-btn-name">The Dreamrift</span>
         <span class="raid-btn-sub">Harandar · 1 Boss</span>
@@ -899,7 +907,6 @@
   <!-- RAID: THE VOIDSPIRE -->
   <!-- ════════════════════════════════════════════════════ -->
   <div class="raid-section active" id="raid-voidspire">
-  <img class="raid-banner" src="images/voidspire_banner.jpg" alt="The Voidspire">
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 1 -->
@@ -1493,7 +1500,6 @@
   <!-- RAID: THE DREAMRIFT -->
   <!-- ════════════════════════════════════════════════════ -->
   <div class="raid-section" id="raid-dreamrift">
-  <img class="raid-banner" src="images/dreamrift_banner.jpg" alt="The Dreamrift">
 
   <!-- ═══════════════════════════════════════════ -->
   <!-- BOSS 1 — CHIMAERUS -->
@@ -1561,7 +1567,7 @@
           <div><div class="loot-name">Alnforged Riftbloom</div><div class="loot-slot">Chest Token · Plate</div></div>
         </a>
       </div>
-      <div class="loot-tier-note">★ Tier token: Chest slot — drops from Chimaerus only. Classes: Cloth (Mage/Priest/Warlock) · Leather (DH/Druid/Monk/Rogue) · Mail (Evoker/Hunter/Shaman) · Plate (DK/Paladin/Warrior)</div>
+      <div class="tier-note">⬡ <strong>Tier 35 Token (Chest):</strong> Chimaerus drops Riftbloom tokens for all four armour classes — Mage/Priest/Warlock · DH/Druid/Monk/Rogue · Evoker/Hunter/Shaman · DK/Paladin/Warrior.</div>
 
       <!-- Video -->
       <button class="video-toggle-btn" onclick="toggleVideo(this)">
@@ -1591,13 +1597,13 @@
       eyebrow: 'WoW Midnight · Season 1 · Voidstorm, Quel\'Thalas',
       title:   'The Voidspire',
       subtitle:'A raid guide for the ascent through six corrupted encounters — Normal & Heroic',
-      pills:   ['6 Bosses', 'Opens March 17, 2026', 'ilvl 246–269', 'Tier 35']
+      pills:   ['6 Bosses', 'ilvl 246–269', 'Tier 35']
     },
     dreamrift: {
       eyebrow: 'WoW Midnight · Season 1 · Harandar',
       title:   'The Dreamrift',
       subtitle:'A raid guide for the single corrupted encounter in the rift — Normal & Heroic',
-      pills:   ['1 Boss', 'Opens March 17, 2026', 'ilvl 250–263', 'Tier 35 Chest']
+      pills:   ['1 Boss', 'ilvl 250–263', 'Tier 35 Chest']
     }
   };
 
