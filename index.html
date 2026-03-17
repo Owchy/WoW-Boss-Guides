@@ -808,29 +808,14 @@
   .raid-btn:hover::before { background: rgba(8,5,18,0.45); }
   .raid-btn.active::before { background: rgba(8,5,18,0.42); }
 
-  .raid-btn::after {
-    content: '';
-    position: absolute;
-    bottom: -1px; left: 50%; right: 50%;
-    height: 2px;
-    background: var(--raid-accent, var(--gold));
-    border-radius: 2px 2px 0 0;
-    transition: left 0.2s, right 0.2s;
-  }
-
   .raid-btn:hover {
-    border-color: rgba(255,255,255,0.2);
-    color: var(--text-primary);
-    background: rgba(255,255,255,0.07);
+    border-color: rgba(255,255,255,0.25);
   }
 
   .raid-btn.active {
     border-color: var(--raid-accent, var(--gold));
     border-width: 2px;
-    color: var(--text-primary);
   }
-
-  .raid-btn.active::after { left: 0; right: 0; }
 
   /* .raid-btn-icon removed — banner bg used instead */
 
@@ -1550,6 +1535,38 @@
       <div class="section-label">Loot Table</div>
       <div class="loot-ilvl-note" style="font-size:13px;color:var(--text-muted);margin:-8px 0 12px;font-style:italic;">Normal ilvl 250 · Heroic ilvl 263</div>
       <div class="loot-grid">
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249373/dream-scorched-striders" data-wowhead="item=249373" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_boot_cloth_raidmagemidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🥿</div>'"></div>
+          <div><div class="loot-name">Dream-Scorched Striders</div><div class="loot-slot">Feet · Cloth</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249374/scorn-scarred-shulkas-belt" data-wowhead="item=249374" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_belt_leather_raidmonkmidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪢</div>'"></div>
+          <div><div class="loot-name">Scorn-Scarred Shul'ka's Belt</div><div class="loot-slot">Waist · Leather</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249371/scornbane-waistguard" data-wowhead="item=249371" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_belt_mail_raidhuntermidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪢</div>'"></div>
+          <div><div class="loot-name">Scornbane Waistguard</div><div class="loot-slot">Waist · Mail</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249381/greaves-of-the-unformed" data-wowhead="item=249381" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_boot_plate_raidwarriormidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🥾</div>'"></div>
+          <div><div class="loot-name">Greaves of the Unformed</div><div class="loot-slot">Feet · Plate</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249278/alnscorned-spire" data-wowhead="item=249278" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_staff_2h_raidmidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪄</div>'"></div>
+          <div><div class="loot-name">Alnscorned Spire</div><div class="loot-slot">Staff · 2H Agi</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249922/tome-of-alnscorned-regret" data-wowhead="item=249922" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_offhand_1h_raidmidnight_d_01.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>📖</div>'"></div>
+          <div><div class="loot-name">Tome of Alnscorned Regret</div><div class="loot-slot">Off-Hand · Int</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249343/gaze-of-the-alnseer" data-wowhead="item=249343" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_raid_dreamrift_gazeofthealnseer.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🔮</div>'"></div>
+          <div><div class="loot-name">Gaze of the Alnseer</div><div class="loot-slot">Trinket · Mastery</div></div>
+        </a>
+        <a class="loot-item q-epic" href="https://www.wowhead.com/item=249805/undreamt-gods-oozing-vestige" data-wowhead="item=249805" target="_blank" rel="noopener">
+          <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_raid_dreamrift-_physdps2_umdreamtgodsoozingvestige.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🧪</div>'"></div>
+          <div><div class="loot-name">Undreamt God's Oozing Vestige</div><div class="loot-slot">Trinket · Agi/Str</div></div>
+        </a>
         <a class="loot-item q-epic" href="https://www.wowhead.com/item=249347/alnwoven-riftbloom" data-wowhead="item=249347" target="_blank" rel="noopener">
           <div class="loot-icon"><img src="https://wow.zamimg.com/images/wow/icons/large/inv_12_trinket_rutaani_currency_blue.jpg" alt="" onerror="this.parentNode.innerHTML='<div class=loot-icon-fallback>🪙</div>'"></div>
           <div><div class="loot-name">Alnwoven Riftbloom</div><div class="loot-slot">Chest Token · Cloth</div></div>
