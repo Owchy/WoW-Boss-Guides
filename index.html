@@ -101,7 +101,11 @@
     max-width: 860px;
     margin: 0 auto;
     padding: 0 24px 80px;
+    box-sizing: border-box;
   }
+
+  /* Isolate Wowhead tooltip styles from our layout */
+  .wowhead-tooltip, .wowhead-tooltip * { box-sizing: content-box !important; }
 
   /* ─── Hero Header ─── */
   .site-header {
@@ -260,6 +264,8 @@
     transition: border-color 0.25s, box-shadow 0.25s;
     opacity: 0;
     transform: translateY(16px);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .boss-card.revealed {
@@ -754,17 +760,6 @@
     .loot-grid { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); }
   }
 </style>
-
-<!-- Wowhead item tooltips -->
-<script>
-  const whTooltips = {
-    colorLinks: false,
-    iconizeLinks: false,
-    renameLinks: false,
-    hide: { questObjectives: true, droppedBy: false, sourcedFrom: false }
-  };
-</script>
-<script src="https://wow.zamimg.com/widgets/power.js"></script>
 </head>
 <body>
 
@@ -800,7 +795,6 @@
       <div>
         <div class="boss-name">Imperator Averzian</div>
         <div class="boss-type">Grid Control · Void Tic-Tac-Toe · Add Denial</div>
-      </div>
       </div>
       <span class="diff-badge badge-n diff-label">Normal — Medium</span>
       <span class="chevron">▾</span>
@@ -1461,5 +1455,24 @@
 
   document.querySelectorAll('.boss-card:not(.revealed)').forEach(card => observer.observe(card));
 </script>
+
+<!-- Wowhead tooltips — loaded last so their CSS doesn't break our layout -->
+<style>
+  /* Re-enforce our layout after Wowhead injects its styles */
+  .page-wrap { max-width: 860px !important; margin: 0 auto !important; }
+  .boss-card { width: 100% !important; }
+  .boss-header { display: grid !important; grid-template-columns: 56px 1fr auto auto !important; }
+  .boss-num img { display: block !important; max-width: 100% !important; }
+  .loot-icon img { display: block !important; }
+</style>
+<script>
+  const whTooltips = {
+    colorLinks: false,
+    iconizeLinks: false,
+    renameLinks: false,
+    hide: { questObjectives: true, droppedBy: false, sourcedFrom: false }
+  };
+</script>
+<script src="https://wow.zamimg.com/widgets/power.js"></script>
 </body>
 </html>
