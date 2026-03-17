@@ -865,9 +865,9 @@
 
   /* ─── Dungeon cards ─── */
   .dungeon-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 32px;
   }
   .dungeon-card {
@@ -889,9 +889,10 @@
   .dungeon-card.open { border-color: rgba(34,211,238,0.3); }
 
   .dungeon-header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
     align-items: center;
-    gap: 14px;
+    gap: 0 14px;
     padding: 14px 16px;
     cursor: pointer;
     user-select: none;
@@ -914,7 +915,6 @@
     width: 48px; height: 48px;
     border-radius: 4px;
     border: 1px solid rgba(34,211,238,0.3);
-    flex-shrink: 0;
     overflow: hidden;
     transition: border-color 0.2s;
     background: rgba(34,211,238,0.08);
@@ -1143,7 +1143,7 @@
         <span class="raid-btn-sub">Harandar · 1 Boss</span>
       </span>
     </button>
-    <button class="raid-btn raid-mplus" onclick="setRaid('mplus')" style="background:linear-gradient(135deg,#0a0f1e 0%,#0d1a2e 40%,#0a1528 100%)">
+    <button class="raid-btn raid-mplus" onclick="setRaid('mplus')" style="background-image:url('images/mythicplus_banner.jpg')">
       <span class="raid-btn-text">
         <span class="raid-btn-name">Mythic+</span>
         <span class="raid-btn-sub">Season 1 · 8 Dungeons</span>
