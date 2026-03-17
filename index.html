@@ -1027,6 +1027,53 @@
     .dungeon-grid { grid-template-columns: 1fr; }
   }
 
+
+  /* ─── Cheat Sheet Collapsible ─── */
+  .cheatsheet-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--void-border);
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 20px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .cheatsheet-toggle:hover {
+    border-color: var(--gold-dim);
+    background: rgba(201,168,76,0.06);
+  }
+  .cheatsheet-toggle.open {
+    border-radius: 4px 4px 0 0;
+    border-color: var(--gold-dim);
+    background: rgba(201,168,76,0.06);
+  }
+  .cheatsheet-toggle .cs-chevron {
+    font-size: 12px;
+    color: var(--gold);
+    transition: transform 0.2s;
+  }
+  .cheatsheet-toggle.open .cs-chevron { transform: rotate(180deg); }
+  .cheatsheet-wrap {
+    display: none;
+    border: 1px solid var(--gold-dim);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
+  }
+  .cheatsheet-wrap img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
   /* ─── Raid Selector ─── */
   .raid-selector {
     display: flex;
@@ -1258,7 +1305,14 @@
         <div class="loot-special"><span class="star">★</span> <strong>Imperator's Torment Crystal</strong> — Player housing decor drop.</div>
         <!-- VIDEO -->
         <div class="boss-video-section">
-          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        <button class="cheatsheet-toggle" onclick="toggleCheatsheet(this)">
+        📋 Boss Cheat Sheet <span class="cs-chevron">▾</span>
+      </button>
+      <div class="cheatsheet-wrap">
+        <img src="images/averzian_bosscard.png" alt="Cheat sheet" loading="lazy">
+      </div>
+
+              <button class="video-toggle-btn" onclick="toggleVideo(this)">
             <span class="vid-icon">▶</span>
             Video Guide — Imperator Averzian
             <span class="vid-chevron">▾</span>
@@ -1350,7 +1404,14 @@
         <div class="tier-note">⬡ <strong>Tier 35 Token (Hands):</strong> Vorasius drops Hungering Nullcore tokens for all four armour classes — Warlock/Priest/Mage · DH/Rogue/Monk/Druid · Evoker/Hunter/Shaman · DK/Paladin/Warrior.</div>
         <!-- VIDEO -->
         <div class="boss-video-section">
-          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        <button class="cheatsheet-toggle" onclick="toggleCheatsheet(this)">
+        📋 Boss Cheat Sheet <span class="cs-chevron">▾</span>
+      </button>
+      <div class="cheatsheet-wrap">
+        <img src="images/vorasius_bosscard.png" alt="Cheat sheet" loading="lazy">
+      </div>
+
+              <button class="video-toggle-btn" onclick="toggleVideo(this)">
             <span class="vid-icon">▶</span>
             Video Guide — Vorasius
             <span class="vid-chevron">▾</span>
@@ -1449,7 +1510,14 @@
         <div class="tier-note">⬡ <strong>Tier 35 Token (Shoulders):</strong> Fallen-King Salhadaar drops Unraveled Nullcore tokens — Warlock/Priest/Mage · DH/Rogue/Monk/Druid · Evoker/Hunter/Shaman · DK/Paladin/Warrior.</div>
         <!-- VIDEO -->
         <div class="boss-video-section">
-          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        <button class="cheatsheet-toggle" onclick="toggleCheatsheet(this)">
+        📋 Boss Cheat Sheet <span class="cs-chevron">▾</span>
+      </button>
+      <div class="cheatsheet-wrap">
+        <img src="images/salhadaar_bosscard.jpg" alt="Cheat sheet" loading="lazy">
+      </div>
+
+              <button class="video-toggle-btn" onclick="toggleVideo(this)">
             <span class="vid-icon">▶</span>
             Video Guide — Fallen-King Salhadaar
             <span class="vid-chevron">▾</span>
@@ -1540,7 +1608,14 @@
         <div class="tier-note">⬡ <strong>Tier 35 Token (Legs):</strong> Vaelgor &amp; Ezzorak drop Corrupted Nullcore tokens — Warlock/Priest/Mage · DH/Rogue/Monk/Druid · Evoker/Hunter/Shaman · DK/Paladin/Warrior.</div>
         <!-- VIDEO -->
         <div class="boss-video-section">
-          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        <button class="cheatsheet-toggle" onclick="toggleCheatsheet(this)">
+        📋 Boss Cheat Sheet <span class="cs-chevron">▾</span>
+      </button>
+      <div class="cheatsheet-wrap">
+        <img src="images/vaelgor_ezzorak_bosscard.jpg" alt="Cheat sheet" loading="lazy">
+      </div>
+
+              <button class="video-toggle-btn" onclick="toggleVideo(this)">
             <span class="vid-icon">▶</span>
             Video Guide — Vaelgor &amp; Ezzorak
             <span class="vid-chevron">▾</span>
@@ -1626,7 +1701,14 @@
         <div class="tier-note">⬡ <strong>Tier 35 Token (Head):</strong> Lightblinded Vanguard drops Fanatical Nullcore tokens — Warlock/Priest/Mage · DH/Rogue/Monk/Druid · Evoker/Hunter/Shaman · DK/Paladin/Warrior.</div>
         <!-- VIDEO -->
         <div class="boss-video-section">
-          <button class="video-toggle-btn" onclick="toggleVideo(this)">
+        <button class="cheatsheet-toggle" onclick="toggleCheatsheet(this)">
+        📋 Boss Cheat Sheet <span class="cs-chevron">▾</span>
+      </button>
+      <div class="cheatsheet-wrap">
+        <img src="images/lightblinded_vanguard_bosscard.png" alt="Cheat sheet" loading="lazy">
+      </div>
+
+              <button class="video-toggle-btn" onclick="toggleVideo(this)">
             <span class="vid-icon">▶</span>
             Video Guide — Lightblinded Vanguard
             <span class="vid-chevron">▾</span>
@@ -2311,6 +2393,13 @@
     card.classList.toggle('open', !isOpen);
     const body = card.querySelector('.boss-body');
     body.classList.toggle('open', !isOpen);
+  }
+
+  function toggleCheatsheet(btn) {
+    const wrap = btn.nextElementSibling;
+    const isOpen = btn.classList.contains('open');
+    btn.classList.toggle('open', !isOpen);
+    wrap.style.display = isOpen ? 'none' : 'block';
   }
 
   function toggleDungeon(card) {
